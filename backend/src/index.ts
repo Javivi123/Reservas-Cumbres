@@ -22,6 +22,24 @@ app.use(express.urlencoded({ extended: true }));
 // Servir archivos estáticos (comprobantes de pago)
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+// Ruta raíz
+app.get('/', (req, res) => {
+  res.json({
+    message: 'API de Reservas Cumbres',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      reservations: '/api/reservations',
+      spaces: '/api/spaces',
+      admin: '/api/admin',
+      users: '/api/users',
+      legal: '/api/legal',
+    },
+    documentation: 'Ver README.md para más información',
+  });
+});
+
 // Rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/reservations', reservationRoutes);
