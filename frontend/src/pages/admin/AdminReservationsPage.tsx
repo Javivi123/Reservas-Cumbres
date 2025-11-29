@@ -8,11 +8,11 @@ import { Input } from '../../components/Input';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import toast from 'react-hot-toast';
-import { Calendar, Filter, Download, Check, X, FileText, Eye } from 'lucide-react';
+import { Filter, Download, Check, X, FileText, Eye } from 'lucide-react';
 
 // Helper para obtener la URL base del servidor (para archivos estáticos)
 const getServerBaseUrl = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = (import.meta as any).env?.VITE_API_URL;
   if (apiUrl) {
     // Si VITE_API_URL está definido, remover /api si existe y usar la base
     return apiUrl.replace(/\/api$/, '');
