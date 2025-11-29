@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User, Space, Reservation, Payment, Log } from '../types';
+import { User, Space, Reservation } from '../types';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 

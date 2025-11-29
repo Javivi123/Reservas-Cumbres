@@ -30,7 +30,6 @@ export const NewReservationPage = () => {
   const navigate = useNavigate();
   const [spaces, setSpaces] = useState<Space[]>([]);
   const [selectedSpace, setSelectedSpace] = useState<Space | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string>('');
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [pricing, setPricing] = useState<{
     precioBase: number;
@@ -138,7 +137,7 @@ export const NewReservationPage = () => {
 
     setLoading(true);
     try {
-      const result = await reservationService.create(data);
+      await reservationService.create(data);
       toast.success('Reserva creada. Realiza el pago para completar la solicitud.');
       navigate('/user/reservations');
     } catch (error: any) {
@@ -223,7 +222,6 @@ export const NewReservationPage = () => {
               max={maxDate}
               onChange={(e) => {
                 setValue('fecha', e.target.value);
-                setSelectedDate(e.target.value);
               }}
             />
             {fecha && (

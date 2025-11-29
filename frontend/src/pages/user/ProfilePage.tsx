@@ -8,7 +8,7 @@ import { User } from '../../types';
 import { Badge } from '../../components/Badge';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
-import { User as UserIcon, Mail, CreditCard, Shield, Lock, Key } from 'lucide-react';
+import { User as UserIcon, Mail, CreditCard, Lock, Key } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const changePasswordSchema = z.object({
@@ -23,7 +23,7 @@ const changePasswordSchema = z.object({
 type ChangePasswordForm = z.infer<typeof changePasswordSchema>;
 
 export const ProfilePage = () => {
-  const { user: authUser } = useAuth();
+  const { user: _authUser } = useAuth(); // Prefijo _ para indicar que no se usa intencionalmente
   const [profile, setProfile] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showPasswordForm, setShowPasswordForm] = useState(false);

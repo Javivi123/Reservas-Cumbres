@@ -2,6 +2,7 @@ export interface User {
   id: string;
   nombre: string;
   email: string;
+  dni?: string;
   role: 'ADMIN' | 'USER' | 'SPECIAL_USER';
   specialRolePending?: boolean;
 }

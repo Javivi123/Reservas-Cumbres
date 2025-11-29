@@ -1,9 +1,10 @@
 interface BadgeProps {
   variant: 'success' | 'warning' | 'danger' | 'info' | 'default';
   children: React.ReactNode;
+  className?: string;
 }
 
-export const Badge = ({ variant, children }: BadgeProps) => {
+export const Badge = ({ variant, children, className = '' }: BadgeProps) => {
   const variantClasses = {
     success: 'bg-green-100 text-green-800',
     warning: 'bg-yellow-100 text-yellow-800',
@@ -14,7 +15,7 @@ export const Badge = ({ variant, children }: BadgeProps) => {
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${variantClasses[variant]}`}
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${variantClasses[variant]} ${className}`}
     >
       {children}
     </span>

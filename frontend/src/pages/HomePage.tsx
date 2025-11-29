@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Calendar, Users, MapPin, Football, Basketball, Activity } from 'lucide-react';
+import { Users, MapPin, Activity, Circle } from 'lucide-react';
 import { Button } from '../components/Button';
 
 export const HomePage = () => {
@@ -10,10 +10,10 @@ export const HomePage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 relative overflow-hidden">
       {/* Iconos animados de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <Football className="absolute top-20 left-10 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '0s' }} />
-        <Basketball className="absolute top-40 right-20 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '1s' }} />
-        <Activity className="absolute bottom-40 left-20 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '2s' }} />
-        <Football className="absolute bottom-20 right-10 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '1.5s' }} />
+        <Circle className="absolute top-20 left-10 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '0s' }} />
+        <Activity className="absolute top-40 right-20 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '1s' }} />
+        <Circle className="absolute bottom-40 left-20 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '2s' }} />
+        <Activity className="absolute bottom-20 right-10 text-blue-200 opacity-20 animate-bounce-slow" size={80} style={{ animationDelay: '1.5s' }} />
       </div>
 
       {/* Header */}
@@ -100,7 +100,7 @@ export const HomePage = () => {
           <div className="card text-center animate-slide-up hover:shadow-xl transition-shadow group">
             <div className="mb-4 relative">
               <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Football className="text-white" size={48} />
+                <Activity className="text-white" size={48} />
               </div>
               <div className="absolute -top-2 -right-2 text-2xl animate-bounce">⚽</div>
             </div>

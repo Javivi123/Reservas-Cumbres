@@ -4,7 +4,6 @@ import { User } from '../../types';
 import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 import { Modal } from '../../components/Modal';
-import { Input } from '../../components/Input';
 import toast from 'react-hot-toast';
 import { Users, Check, X } from 'lucide-react';
 
