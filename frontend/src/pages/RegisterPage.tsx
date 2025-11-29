@@ -69,7 +69,7 @@ export const RegisterPage = () => {
               <span className="text-4xl">✨</span>
             </div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">Crear Cuenta</h1>
-            <p className="text-gray-600">Regístrate para comenzar a reservar 🎯</p>
+            <p className="text-gray-600">Regístrate para comenzar a reservar <span>🎯</span></p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -134,7 +134,7 @@ export const RegisterPage = () => {
                   Registrando...
                 </>
               ) : (
-                '✨ Registrarse'
+                <><span>✨</span> <span>Registrarse</span></>
               )}
             </Button>
           </form>

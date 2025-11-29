@@ -60,28 +60,29 @@ export const HomePage = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="text-center">
           <div className="mb-6 animate-fade-in">
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
-              ⚽🏀🎾 Sistema de Reservas
+            <h1 className="text-6xl font-bold mb-4 flex items-center justify-center flex-wrap gap-2">
+              <span>⚽</span><span>🏀</span><span>🎾</span>
+              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Sistema de Reservas</span>
             </h1>
             <h2 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4">
               Pistas Deportivas
             </h2>
           </div>
           <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-            🏃‍♂️ Reserva fácilmente las pistas deportivas del colegio. 
+            <span>🏃‍♂️</span> Reserva fácilmente las pistas deportivas del colegio. 
             <br />
-            <span className="font-semibold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Gestión simple y rápida</span> ✨
+            <span className="font-semibold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Gestión simple y rápida</span> <span>✨</span>
           </p>
           {!user && (
             <div className="flex justify-center space-x-4 animate-slide-up">
               <Link to="/register">
                 <Button className="text-lg px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
-                  🚀 Comenzar Ahora
+                  <span>🚀</span> <span>Comenzar Ahora</span>
                 </Button>
               </Link>
               <Link to="/login">
                 <Button variant="secondary" className="text-lg px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 shadow-md hover:shadow-lg">
-                  👤 Ya tengo cuenta
+                  <span>👤</span> <span>Ya tengo cuenta</span>
                 </Button>
               </Link>
             </div>
@@ -99,9 +100,12 @@ export const HomePage = () => {
               </div>
               <div className="absolute -top-2 -right-2 text-3xl animate-bounce">⚽</div>
             </div>
-            <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">📅 Reservas Fáciles</h3>
+            <h3 className="text-xl font-semibold mb-2 flex items-center justify-center">
+              <span>📅</span>
+              <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent ml-2">Reservas Fáciles</span>
+            </h3>
             <p className="text-gray-700">
-              Reserva tus pistas favoritas en pocos clics. Selecciona fecha, hora y pista. 🎯
+              Reserva tus pistas favoritas en pocos clics. Selecciona fecha, hora y pista. <span>🎯</span>
             </p>
           </div>
           
@@ -112,9 +116,12 @@ export const HomePage = () => {
               </div>
               <div className="absolute -top-2 -right-2 text-3xl animate-bounce" style={{ animationDelay: '0.2s' }}>🏀</div>
             </div>
-            <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">🏟️ Múltiples Pistas</h3>
+            <h3 className="text-xl font-semibold mb-2 flex items-center justify-center">
+              <span>🏟️</span>
+              <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent ml-2">Múltiples Pistas</span>
+            </h3>
             <p className="text-gray-700">
-              Césped ⚽, multi 🏀 y pádel 🎾. Elige la pista que mejor se adapte a tu actividad.
+              Césped <span>⚽</span>, multi <span>🏀</span> y pádel <span>🎾</span>. Elige la pista que mejor se adapte a tu actividad.
             </p>
           </div>
           
@@ -125,9 +132,12 @@ export const HomePage = () => {
               </div>
               <div className="absolute -top-2 -right-2 text-3xl animate-bounce" style={{ animationDelay: '0.4s' }}>🎾</div>
             </div>
-            <h3 className="text-xl font-semibold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">💰 Precios Especiales</h3>
+            <h3 className="text-xl font-semibold mb-2 flex items-center justify-center">
+              <span>💰</span>
+              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent ml-2">Precios Especiales</span>
+            </h3>
             <p className="text-gray-700">
-              Alumnos 👨‍🎓, familias 👨‍👩‍👧‍👦 y ex-alumnos 🎓 disfrutan de tarifas especiales.
+              Alumnos <span>👨‍🎓</span>, familias <span>👨‍👩‍👧‍👦</span> y ex-alumnos <span>🎓</span> disfrutan de tarifas especiales.
             </p>
           </div>
         </div>
@@ -136,7 +146,7 @@ export const HomePage = () => {
       {/* Logo del colegio */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="text-center">
-          <p className="text-gray-600 mb-4">🏫 Desarrollado para</p>
+          <p className="text-gray-600 mb-4"><span>🏫</span> Desarrollado para</p>
           <a 
             href="https://cumbresschool.es" 
             target="_blank" 
@@ -153,17 +163,17 @@ export const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-white/90 mb-4 md:mb-0">
-              © 2025 Javier Sánchez (alumno de Cumbres). Todos los derechos reservados. 🎓
+              © 2025 Javier Sánchez (alumno de Cumbres). Todos los derechos reservados. <span>🎓</span>
             </div>
             <div className="flex space-x-6">
               <Link to="/legal/privacidad" className="text-white/90 hover:text-white transition-colors font-medium">
-                🔒 Privacidad
+                <span>🔒</span> <span>Privacidad</span>
               </Link>
               <Link to="/legal/normas" className="text-white/90 hover:text-white transition-colors font-medium">
-                📋 Normas
+                <span>📋</span> <span>Normas</span>
               </Link>
               <Link to="/legal/emergencia" className="text-white/90 hover:text-white transition-colors font-medium">
-                🚨 Emergencia
+                <span>🚨</span> <span>Emergencia</span>
               </Link>
             </div>
           </div>

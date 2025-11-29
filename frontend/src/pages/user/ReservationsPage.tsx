@@ -58,9 +58,9 @@ export const ReservationsPage = () => {
   const getStatusBadge = (estado: string) => {
     switch (estado) {
       case 'RESERVADA':
-        return <Badge variant="success">✅ Reservada</Badge>;
+        return <Badge variant="success"><span>✅</span> <span>Reservada</span></Badge>;
       case 'PRE_RESERVADA':
-        return <Badge variant="warning">⏳ Pendiente de Pago</Badge>;
+        return <Badge variant="warning"><span>⏳</span> <span>Pendiente de Pago</span></Badge>;
       case 'LIBRE':
         return <Badge variant="default">Libre</Badge>;
       case 'NO_DISPONIBLE':
@@ -111,8 +111,9 @@ export const ReservationsPage = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center">
-          📅 Mis Reservas
+        <h1 className="text-3xl font-bold flex items-center">
+          <span>📅</span>
+          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-2">Mis Reservas</span>
         </h1>
       </div>
 
@@ -199,11 +200,11 @@ export const ReservationsPage = () => {
                         <p className="text-sm text-gray-700 mt-2">
                           <strong>Estado del pago:</strong>{' '}
                           {reservation.payment.status === 'APROBADO' ? (
-                            <Badge variant="success" className="ml-2">✅ Aprobado</Badge>
+                            <Badge variant="success" className="ml-2"><span>✅</span> <span>Aprobado</span></Badge>
                           ) : reservation.payment.status === 'RECHAZADO' ? (
-                            <Badge variant="danger" className="ml-2">❌ Rechazado</Badge>
+                            <Badge variant="danger" className="ml-2"><span>❌</span> <span>Rechazado</span></Badge>
                           ) : (
-                            <Badge variant="warning" className="ml-2">⏳ Pendiente</Badge>
+                            <Badge variant="warning" className="ml-2"><span>⏳</span> <span>Pendiente</span></Badge>
                           )}
                         </p>
                       </div>

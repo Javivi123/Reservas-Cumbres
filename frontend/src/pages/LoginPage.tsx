@@ -56,7 +56,7 @@ export const LoginPage = () => {
               <span className="text-4xl">👤</span>
             </div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">Iniciar Sesión</h1>
-            <p className="text-gray-600">Accede a tu cuenta para gestionar tus reservas ✨</p>
+            <p className="text-gray-600">Accede a tu cuenta para gestionar tus reservas <span>✨</span></p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -83,7 +83,7 @@ export const LoginPage = () => {
                   Iniciando sesión...
                 </>
               ) : (
-                '🚀 Iniciar Sesión'
+                <><span>🚀</span> <span>Iniciar Sesión</span></>
               )}
             </Button>
           </form>

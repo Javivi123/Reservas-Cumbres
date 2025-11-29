@@ -152,16 +152,18 @@ export const NewReservationPage = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-6 flex items-center">
-        ✨ Nueva Reserva
+      <h1 className="text-3xl font-bold mb-6 flex items-center">
+        <span>✨</span>
+        <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent ml-2">Nueva Reserva</span>
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Selección de pista */}
         <div className="card bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
-          <h2 className="text-xl font-semibold mb-4 flex items-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-xl font-semibold mb-4 flex items-center">
             <MapPin className="mr-2 text-blue-600" size={24} />
-            🏟️ Selecciona una Pista
+            <span>🏟️</span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-2">Selecciona una Pista</span>
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {spaces.map((space) => {
@@ -192,11 +194,11 @@ export const NewReservationPage = () => {
                       <h3 className="font-semibold text-lg">{space.nombre}</h3>
                     </div>
                     <p className="text-sm text-gray-600 mt-1">
-                      💰 General: €{space.precioBase} | ⭐ Especial: €{space.precioEspecial}
+                      <span>💰</span> General: €{space.precioBase} | <span>⭐</span> Especial: €{space.precioEspecial}
                     </p>
                     {space.luzIncluida && (
                       <Badge variant="info" className="mt-2">
-                        💡 Luz incluida
+                        <span>💡</span> <span>Luz incluida</span>
                       </Badge>
                     )}
                   </div>
@@ -297,9 +299,10 @@ export const NewReservationPage = () => {
         {/* Resumen y precio */}
         {selectedSpace && (
           <div className="card bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200">
-            <h2 className="text-xl font-semibold mb-4 flex items-center bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <h2 className="text-xl font-semibold mb-4 flex items-center">
               <Euro className="mr-2 text-green-600" size={24} />
-              💰 Resumen del Pedido
+              <span>💰</span>
+              <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent ml-2">Resumen del Pedido</span>
             </h2>
             {pricing ? (
               <div className="space-y-2">
@@ -309,13 +312,13 @@ export const NewReservationPage = () => {
                 </div>
                 {pricing.precioLuz > 0 && (
                   <div className="flex justify-between">
-                    <span>💡 Iluminación:</span>
+                    <span><span>💡</span> <span>Iluminación:</span></span>
                     <span>€{pricing.precioLuz.toFixed(2)}</span>
                   </div>
                 )}
                 {selectedSpace.luzIncluida && (
                   <div className="flex justify-between text-sm text-green-600">
-                    <span>✨ Luz incluida</span>
+                    <span><span>✨</span> <span>Luz incluida</span></span>
                   </div>
                 )}
                 <div className="flex justify-between text-xl font-bold pt-2 border-t-2 border-green-300">
@@ -330,7 +333,7 @@ export const NewReservationPage = () => {
         )}
 
         <Button type="submit" className="w-full text-lg py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all" disabled={loading || !pricing || !franja}>
-          {loading ? '⏳ Creando reserva...' : '✅ Crear Reserva'}
+          {loading ? <><span>⏳</span> <span>Creando reserva...</span></> : <><span>✅</span> <span>Crear Reserva</span></>}
         </Button>
       </form>
     </div>

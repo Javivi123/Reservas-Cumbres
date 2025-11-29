@@ -42,9 +42,10 @@ export const ContactPage = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-6 flex items-center">
+      <h1 className="text-3xl font-bold mb-6 flex items-center">
         <MessageSquare className="mr-3 text-orange-600" size={32} />
-        💬 Contacto / Soporte
+        <span>💬</span>
+        <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent ml-2">Contacto / Soporte</span>
       </h1>
 
       <div className="card max-w-2xl bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200">
@@ -57,7 +58,7 @@ export const ContactPage = () => {
               ¿Tienes alguna pregunta o necesitas ayuda? 
             </p>
             <p className="text-gray-600 text-sm">
-              Envíanos un mensaje y te responderemos lo antes posible. 📧
+              Envíanos un mensaje y te responderemos lo antes posible. <span>📧</span>
             </p>
           </div>
         </div>
@@ -94,7 +95,7 @@ export const ContactPage = () => {
             ) : (
               <>
                 <Send size={18} className="mr-2" />
-                📤 Enviar Mensaje
+                <span>📤</span> <span>Enviar Mensaje</span>
               </>
             )}
           </Button>

@@ -57,7 +57,7 @@ export const ProfilePage = () => {
     setChangingPassword(true);
     try {
       await userService.changePassword(data.currentPassword, data.newPassword);
-      toast.success('✅ Contraseña cambiada exitosamente');
+      toast.success('Contraseña cambiada exitosamente');
       setShowPasswordForm(false);
       resetPassword();
     } catch (error: any) {
@@ -81,21 +81,22 @@ export const ProfilePage = () => {
 
   const getRoleBadge = () => {
     if (profile.role === 'ADMIN') {
-      return <Badge variant="info">🛡️ Administrador</Badge>;
+      return <Badge variant="info"><span>🛡️</span> <span>Administrador</span></Badge>;
     }
     if (profile.role === 'SPECIAL_USER') {
-      return <Badge variant="success">⭐ Usuario Especial</Badge>;
+      return <Badge variant="success"><span>⭐</span> <span>Usuario Especial</span></Badge>;
     }
     if (profile.specialRolePending) {
-      return <Badge variant="warning">⏳ Pendiente de Aprobación</Badge>;
+      return <Badge variant="warning"><span>⏳</span> <span>Pendiente de Aprobación</span></Badge>;
     }
-    return <Badge variant="default">👤 Usuario</Badge>;
+    return <Badge variant="default"><span>👤</span> <span>Usuario</span></Badge>;
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 flex items-center">
-        👤 Mi Perfil
+      <h1 className="text-3xl font-bold mb-6 flex items-center">
+        <span>👤</span>
+        <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent ml-2">Mi Perfil</span>
       </h1>
 
       <div className="space-y-6">
@@ -114,7 +115,7 @@ export const ProfilePage = () => {
             <div className="flex items-center space-x-3">
               <Mail className="text-gray-400" size={20} />
               <div>
-                <p className="text-sm text-gray-600">📧 Email</p>
+                <p className="text-sm text-gray-600"><span>📧</span> <span>Email</span></p>
                 <p className="font-medium">{profile.email}</p>
               </div>
             </div>
@@ -122,7 +123,7 @@ export const ProfilePage = () => {
             <div className="flex items-center space-x-3">
               <CreditCard className="text-gray-400" size={20} />
               <div>
-                <p className="text-sm text-gray-600">🆔 DNI</p>
+                <p className="text-sm text-gray-600"><span>🆔</span> <span>DNI</span></p>
                 <p className="font-medium">{profile.dni || 'No disponible'}</p>
               </div>
             </div>
@@ -130,7 +131,7 @@ export const ProfilePage = () => {
             {profile.specialRolePending && (
               <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <p className="text-sm text-yellow-800">
-                  ⏳ Tu solicitud de precio especial está siendo revisada por un administrador.
+                  <span>⏳</span> Tu solicitud de precio especial está siendo revisada por un administrador.
                 </p>
               </div>
             )}
@@ -140,9 +141,10 @@ export const ProfilePage = () => {
         {/* Cambiar contraseña */}
         <div className="card bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold flex items-center bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+            <h2 className="text-xl font-semibold flex items-center">
               <Lock className="mr-2 text-orange-600" size={24} />
-              🔐 Cambiar Contraseña
+              <span>🔐</span>
+              <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent ml-2">Cambiar Contraseña</span>
             </h2>
             <Button
               variant="secondary"
@@ -151,7 +153,7 @@ export const ProfilePage = () => {
                 resetPassword();
               }}
             >
-              {showPasswordForm ? '❌ Cancelar' : '🔑 Cambiar'}
+              {showPasswordForm ? <><span>❌</span> <span>Cancelar</span></> : <><span>🔑</span> <span>Cambiar</span></>}
             </Button>
           </div>
 
