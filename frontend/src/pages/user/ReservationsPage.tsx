@@ -93,21 +93,14 @@ export const ReservationsPage = () => {
         </div>
       ) : (
         <div className="grid gap-6">
-          {reservations.map((reservation, index) => {
-            const gradientColors = [
-              'from-blue-500 to-cyan-500',
-              'from-green-500 to-emerald-500',
-              'from-purple-500 to-pink-500',
-              'from-orange-500 to-red-500',
-            ];
-            const gradient = gradientColors[index % gradientColors.length];
+          {reservations.map((reservation) => {
             return (
-              <div key={reservation.id} className={`card bg-gradient-to-br ${gradient} bg-opacity-10 border-2 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
+              <div key={reservation.id} className="card bg-white border-2 border-gray-200 shadow-md hover:shadow-lg transition-all">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-4 mb-4">
-                      <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} bg-opacity-20`}>
-                        <MapPin className="text-gray-700" size={20} />
+                      <div className="p-2 rounded-lg bg-blue-100">
+                        <MapPin className="text-blue-600" size={20} />
                       </div>
                       <h3 className="text-xl font-semibold text-gray-800">{reservation.space?.nombre}</h3>
                       {getStatusBadge(reservation.estado)}
@@ -139,7 +132,7 @@ export const ReservationsPage = () => {
                     </div>
 
                     {reservation.payment && (
-                      <div className={`mt-4 p-4 bg-gradient-to-r ${gradient} bg-opacity-10 rounded-lg border-2`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
+                      <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
                         <p className="text-sm text-gray-700 font-medium">
                           <strong>💳 Número de cuenta:</strong> {reservation.payment.numeroCuenta}
                         </p>
@@ -161,11 +154,12 @@ export const ReservationsPage = () => {
                     {reservation.estado === 'PRE_RESERVADA' &&
                       !reservation.payment?.comprobanteUrl && (
                         <Button
-                          variant="secondary"
+                          variant="primary"
                           onClick={() => setSelectedReservation(reservation)}
+                          className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white"
                         >
                           <Upload size={18} className="mr-2" />
-                          Subir Comprobante
+                          📤 Subir Comprobante
                         </Button>
                       )}
                     <Button

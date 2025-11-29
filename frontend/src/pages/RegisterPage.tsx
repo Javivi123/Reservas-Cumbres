@@ -55,12 +55,21 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-white px-4 py-8">
-      <div className="max-w-md w-full">
-        <div className="card">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-emerald-50 to-blue-50 px-4 py-8 relative overflow-hidden">
+      {/* Iconos decorativos de fondo */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-36 h-36 bg-green-200 rounded-full opacity-20 animate-float"></div>
+        <div className="absolute bottom-20 left-10 w-32 h-32 bg-emerald-200 rounded-full opacity-20 animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/3 left-1/4 w-28 h-28 bg-blue-200 rounded-full opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
+      </div>
+      <div className="max-w-md w-full relative z-10">
+        <div className="card bg-white/90 backdrop-blur-sm border-2 border-green-200 shadow-2xl">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Crear Cuenta</h1>
-            <p className="text-gray-600">Regístrate para comenzar a reservar</p>
+            <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+              <span className="text-4xl">✨</span>
+            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">Crear Cuenta</h1>
+            <p className="text-gray-600">Regístrate para comenzar a reservar 🎯</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -118,8 +127,15 @@ export const RegisterPage = () => {
               Tu solicitud será revisada por un administrador
             </p>
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Registrando...' : 'Registrarse'}
+            <Button type="submit" className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all" disabled={loading}>
+              {loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Registrando...
+                </>
+              ) : (
+                '✨ Registrarse'
+              )}
             </Button>
           </form>
 
