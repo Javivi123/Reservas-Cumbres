@@ -10,6 +10,17 @@ import { es } from 'date-fns/locale';
 import toast from 'react-hot-toast';
 import { Calendar, Filter, Download, Check, X, FileText, Eye } from 'lucide-react';
 
+// Helper para obtener la URL base del servidor (para archivos estáticos)
+const getServerBaseUrl = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (apiUrl) {
+    // Si VITE_API_URL está definido, remover /api si existe y usar la base
+    return apiUrl.replace(/\/api$/, '');
+  }
+  // Si no está definido, usar la URL relativa (funciona con el proxy de Vite)
+  return '';
+};
+
 export const AdminReservationsPage = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [spaces, setSpaces] = useState<Space[]>([]);
@@ -381,7 +392,7 @@ export const AdminReservationsPage = () => {
                   <FileText className="mx-auto text-gray-400 mb-4" size={64} />
                   <p className="text-gray-600 mb-4">Este es un archivo PDF</p>
                   <a
-                    href={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
+                    href={`${getServerBaseUrl()}${selectedReservation.payment.comprobanteUrl}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary inline-flex items-center"
@@ -392,7 +403,7 @@ export const AdminReservationsPage = () => {
                 </div>
               ) : (
                 <img
-                  src={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
+                  src={`${getServerBaseUrl()}${selectedReservation.payment.comprobanteUrl}`}
                   alt="Comprobante de pago"
                   className="max-w-full h-auto rounded"
                   onError={(e) => {
