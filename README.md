@@ -196,6 +196,64 @@ El esquema de Prisma incluye:
 - **Payment**: Pagos y comprobantes
 - **Log**: Logs de acciones del sistema
 
+## 🌐 Acceso Externo con ngrok
+
+La aplicación está configurada para funcionar con ngrok, permitiendo acceso desde internet.
+
+### Configuración
+
+La aplicación ya está configurada para aceptar conexiones externas:
+- **Frontend (Vite)**: Escucha en `0.0.0.0:3000`
+- **Backend (Express)**: Escucha en `0.0.0.0:3001`
+
+### Uso con ngrok
+
+1. **Instalar ngrok** (si no lo tienes):
+   ```bash
+   # macOS
+   brew install ngrok/ngrok/ngrok
+   
+   # O descargar desde https://ngrok.com/download
+   ```
+
+2. **Iniciar la aplicación** (en dos terminales):
+   ```bash
+   # Terminal 1: Backend
+   cd backend
+   npm run dev
+   
+   # Terminal 2: Frontend
+   cd frontend
+   npm run dev
+   ```
+
+3. **Crear túnel ngrok para el frontend**:
+   ```bash
+   ngrok http 3000
+   ```
+
+4. **Acceder a la aplicación**:
+   - ngrok te dará una URL como: `https://xxxx-xx-xx-xx-xx.ngrok-free.app`
+   - Abre esa URL en tu navegador
+   - El proxy de Vite redirigirá automáticamente las peticiones `/api` y `/uploads` al backend local
+
+### Notas Importantes
+
+- **Backend local**: El backend sigue corriendo en `localhost:3001`. El proxy de Vite se encarga de redirigir las peticiones.
+- **CORS**: El backend ya tiene CORS habilitado, por lo que aceptará peticiones desde cualquier origen.
+- **Variables de entorno**: Si necesitas que el frontend use una URL específica del backend en producción, configura `VITE_API_URL` en el archivo `.env` del frontend.
+
+### Alternativa: Túnel para Backend también
+
+Si necesitas exponer el backend directamente (no recomendado para desarrollo):
+
+```bash
+# Terminal adicional para backend
+ngrok http 3001
+```
+
+Luego configura `VITE_API_URL` en el frontend con la URL de ngrok del backend.
+
 ## 🚀 Despliegue
 
 ### Configuración de Entornos

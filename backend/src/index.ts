@@ -53,7 +53,8 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Servidor funcionando correctamente' });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🌐 Accesible desde cualquier interfaz de red (0.0.0.0:${PORT})`);
 });
 
