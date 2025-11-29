@@ -216,23 +216,39 @@ La aplicación ya está configurada para aceptar conexiones externas:
    # O descargar desde https://ngrok.com/download
    ```
 
-2. **Iniciar la aplicación** (en dos terminales):
+2. **Verificar que los puertos estén libres**:
+   ```bash
+   # Verificar que el puerto 3000 (frontend) esté libre
+   lsof -i :3000
+   
+   # Verificar que el puerto 3001 (backend) esté libre
+   lsof -i :3001
+   
+   # Si están ocupados, cierra los procesos o cambia los puertos
+   ```
+
+3. **Iniciar la aplicación** (en dos terminales):
    ```bash
    # Terminal 1: Backend
    cd backend
    npm run dev
+   # Debe mostrar: "🚀 Servidor corriendo en http://localhost:3001"
    
    # Terminal 2: Frontend
    cd frontend
    npm run dev
+   # Debe mostrar: "Local: http://localhost:3000/"
+   # Si el puerto 3000 está ocupado, Vite fallará con un error claro
    ```
 
-3. **Crear túnel ngrok para el frontend**:
+4. **Crear túnel ngrok para el frontend**:
    ```bash
    ngrok http 3000
    ```
+   
+   > **Importante**: Asegúrate de que el frontend esté corriendo en el puerto 3000 antes de crear el túnel. Si Vite no puede usar el puerto 3000, fallará con un error en lugar de cambiar a otro puerto.
 
-4. **Acceder a la aplicación**:
+5. **Acceder a la aplicación**:
    - ngrok te dará una URL como: `https://xxxx-xx-xx-xx-xx.ngrok-free.app`
    - Abre esa URL en tu navegador
    - El proxy de Vite redirigirá automáticamente las peticiones `/api` y `/uploads` al backend local
