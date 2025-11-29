@@ -53,8 +53,37 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Servidor funcionando correctamente' });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
   console.log(`🌐 Accesible desde cualquier interfaz de red (0.0.0.0:${PORT})`);
+});
+
+// Manejo de errores del servidor
+server.on('error', (error: NodeJS.ErrnoException) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`❌ Error: El puerto ${PORT} ya está en uso`);
+    console.error(`💡 Solución: Cierra el proceso que usa el puerto ${PORT} o cambia el puerto en .env`);
+    process.exit(1);
+  } else {
+    console.error('❌ Error del servidor:', error);
+    process.exit(1);
+  }
+});
+
+// Manejo de señales para cierre limpio
+process.on('SIGTERM', () => {
+  console.log('🛑 SIGTERM recibido, cerrando servidor...');
+  server.close(() => {
+    console.log('✅ Servidor cerrado correctamente');
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('🛑 SIGINT recibido, cerrando servidor...');
+  server.close(() => {
+    console.log('✅ Servidor cerrado correctamente');
+    process.exit(0);
+  });
 });
 
