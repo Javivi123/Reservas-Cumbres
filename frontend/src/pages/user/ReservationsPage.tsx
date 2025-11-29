@@ -102,85 +102,86 @@ export const ReservationsPage = () => {
             ];
             const gradient = gradientColors[index % gradientColors.length];
             return (
-            <div key={reservation.id} className={`card bg-gradient-to-br ${gradient} bg-opacity-10 border-2 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} bg-opacity-20`}>
-                      <MapPin className="text-gray-700" size={20} />
+              <div key={reservation.id} className={`card bg-gradient-to-br ${gradient} bg-opacity-10 border-2 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center space-x-4 mb-4">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} bg-opacity-20`}>
+                        <MapPin className="text-gray-700" size={20} />
+                      </div>
+                      <h3 className="text-xl font-semibold text-gray-800">{reservation.space?.nombre}</h3>
+                      {getStatusBadge(reservation.estado)}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800">{reservation.space?.nombre}</h3>
-                    {getStatusBadge(reservation.estado)}
-                  </div>
 
-                  <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-600">
-                    <div className="flex items-center space-x-2">
-                      <Calendar size={16} />
-                      <span>
-                        {format(new Date(reservation.fecha), "EEEE, d 'de' MMMM 'de' yyyy", {
-                          locale: es,
-                        })}
-                      </span>
-                    </div>
-                    <div>
-                      <strong>Franja:</strong> {reservation.franja}
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Euro size={16} />
-                      <span>
-                        <strong>Total:</strong> €{reservation.precioTotal.toFixed(2)}
-                      </span>
-                    </div>
-                    {reservation.luz && (
+                    <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-600">
+                      <div className="flex items-center space-x-2">
+                        <Calendar size={16} />
+                        <span>
+                          {format(new Date(reservation.fecha), "EEEE, d 'de' MMMM 'de' yyyy", {
+                            locale: es,
+                          })}
+                        </span>
+                      </div>
                       <div>
-                        <strong>Luz:</strong> Incluida
+                        <strong>Franja:</strong> {reservation.franja}
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Euro size={16} />
+                        <span>
+                          <strong>Total:</strong> €{reservation.precioTotal.toFixed(2)}
+                        </span>
+                      </div>
+                      {reservation.luz && (
+                        <div>
+                          <strong>Luz:</strong> Incluida
+                        </div>
+                      )}
+                    </div>
+
+                    {reservation.payment && (
+                      <div className={`mt-4 p-4 bg-gradient-to-r ${gradient} bg-opacity-10 rounded-lg border-2`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
+                        <p className="text-sm text-gray-700 font-medium">
+                          <strong>💳 Número de cuenta:</strong> {reservation.payment.numeroCuenta}
+                        </p>
+                        <p className="text-sm text-gray-700 mt-2">
+                          <strong>Estado del pago:</strong>{' '}
+                          {reservation.payment.status === 'APROBADO' ? (
+                            <Badge variant="success" className="ml-2">✅ Aprobado</Badge>
+                          ) : reservation.payment.status === 'RECHAZADO' ? (
+                            <Badge variant="danger" className="ml-2">❌ Rechazado</Badge>
+                          ) : (
+                            <Badge variant="warning" className="ml-2">⏳ Pendiente</Badge>
+                          )}
+                        </p>
                       </div>
                     )}
                   </div>
 
-                  {reservation.payment && (
-                    <div className={`mt-4 p-4 bg-gradient-to-r ${gradient} bg-opacity-10 rounded-lg border-2`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
-                      <p className="text-sm text-gray-700 font-medium">
-                        <strong>💳 Número de cuenta:</strong> {reservation.payment.numeroCuenta}
-                      </p>
-                      <p className="text-sm text-gray-700 mt-2">
-                        <strong>Estado del pago:</strong>{' '}
-                        {reservation.payment.status === 'APROBADO' ? (
-                          <Badge variant="success" className="ml-2">✅ Aprobado</Badge>
-                        ) : reservation.payment.status === 'RECHAZADO' ? (
-                          <Badge variant="danger" className="ml-2">❌ Rechazado</Badge>
-                        ) : (
-                          <Badge variant="warning" className="ml-2">⏳ Pendiente</Badge>
-                        )}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="mt-4 md:mt-0 md:ml-4 flex space-x-2">
-                  {reservation.estado === 'PRE_RESERVADA' &&
-                    !reservation.payment?.comprobanteUrl && (
-                      <Button
-                        variant="secondary"
-                        onClick={() => setSelectedReservation(reservation)}
-                      >
-                        <Upload size={18} className="mr-2" />
-                        Subir Comprobante
-                      </Button>
-                    )}
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      // Ver detalles
-                      setSelectedReservation(reservation);
-                    }}
-                  >
-                    <Eye size={18} />
-                  </Button>
+                  <div className="mt-4 md:mt-0 md:ml-4 flex space-x-2">
+                    {reservation.estado === 'PRE_RESERVADA' &&
+                      !reservation.payment?.comprobanteUrl && (
+                        <Button
+                          variant="secondary"
+                          onClick={() => setSelectedReservation(reservation)}
+                        >
+                          <Upload size={18} className="mr-2" />
+                          Subir Comprobante
+                        </Button>
+                      )}
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        // Ver detalles
+                        setSelectedReservation(reservation);
+                      }}
+                    >
+                      <Eye size={18} />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
