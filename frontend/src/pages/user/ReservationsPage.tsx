@@ -195,7 +195,7 @@ export const ReservationsPage = () => {
                     {reservation.payment && (
                       <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
                         <p className="text-sm text-gray-700 font-medium">
-                          <strong>💳 Número de cuenta:</strong> {reservation.payment.numeroCuenta}
+                          <strong><span>💳</span> <span>Número de cuenta:</span></strong> {reservation.payment.numeroCuenta}
                         </p>
                         <p className="text-sm text-gray-700 mt-2">
                           <strong>Estado del pago:</strong>{' '}
