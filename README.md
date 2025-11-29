@@ -267,13 +267,13 @@ npx prisma migrate reset
 
 ## 📄 Licencia
 
-Este proyecto es privado y está destinado al uso del Colegio Cumbres.
+Este proyecto está creado por Javier Sánchez Risen, es privado y está destinado al uso del Colegio Cumbres.
 
 ## 👥 Soporte
 
-Para cualquier problema o pregunta, contacta con el equipo de desarrollo.
+Para cualquier problema o pregunta, contacta conmigo: jav.sr@icloud.com.
 
 ---
 
-**Desarrollado con ❤️ para el Colegio Cumbres**
+**Desarrollado con ❤️ por Javier Sánchez para el Colegio Cumbres School**
 
