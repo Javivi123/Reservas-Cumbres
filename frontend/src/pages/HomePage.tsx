@@ -20,18 +20,10 @@ export const HomePage = () => {
       <header className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center">
               <div className="text-2xl font-bold text-primary-600">
                 ⚽ Reservas
               </div>
-              <a 
-                href="https://cumbresschool.es" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-xs text-gray-500 hover:text-primary-600 transition-colors"
-              >
-                Cumbres School Valencia
-              </a>
             </div>
             <nav className="flex items-center space-x-4">
               {user ? (
