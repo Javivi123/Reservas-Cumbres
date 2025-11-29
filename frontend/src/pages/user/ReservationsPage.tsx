@@ -139,18 +139,18 @@ export const ReservationsPage = () => {
                   </div>
 
                   {reservation.payment && (
-                    <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600">
-                        <strong>Número de cuenta:</strong> {reservation.payment.numeroCuenta}
+                    <div className={`mt-4 p-4 bg-gradient-to-r ${gradient} bg-opacity-10 rounded-lg border-2`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
+                      <p className="text-sm text-gray-700 font-medium">
+                        <strong>💳 Número de cuenta:</strong> {reservation.payment.numeroCuenta}
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-700 mt-2">
                         <strong>Estado del pago:</strong>{' '}
                         {reservation.payment.status === 'APROBADO' ? (
-                          <Badge variant="success">Aprobado</Badge>
+                          <Badge variant="success" className="ml-2">✅ Aprobado</Badge>
                         ) : reservation.payment.status === 'RECHAZADO' ? (
-                          <Badge variant="danger">Rechazado</Badge>
+                          <Badge variant="danger" className="ml-2">❌ Rechazado</Badge>
                         ) : (
-                          <Badge variant="warning">Pendiente</Badge>
+                          <Badge variant="warning" className="ml-2">⏳ Pendiente</Badge>
                         )}
                       </p>
                     </div>
