@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import bcrypt from 'bcryptjs';
 import prisma from '../prisma/client';
 import { authenticate, AuthRequest } from '../middleware/auth';
 
@@ -81,7 +82,6 @@ router.post('/change-password', authenticate, async (req: AuthRequest, res) => {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    const bcrypt = require('bcryptjs');
     const isValidPassword = await bcrypt.compare(currentPassword, user.passwordHash);
 
     if (!isValidPassword) {

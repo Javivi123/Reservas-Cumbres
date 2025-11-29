@@ -375,20 +375,39 @@ export const AdminReservationsPage = () => {
             <p className="text-gray-600">
               Comprobante de pago para la reserva de <strong>{selectedReservation.space?.nombre}</strong>
             </p>
-            <div className="border rounded-lg p-4 bg-gray-50">
-              <img
-                src={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
-                alt="Comprobante de pago"
-                className="max-w-full h-auto rounded"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const errorDiv = document.createElement('div');
-                  errorDiv.className = 'text-center p-4 text-gray-500';
-                  errorDiv.textContent = 'No se pudo cargar la imagen. El archivo puede ser un PDF.';
-                  target.parentElement?.appendChild(errorDiv);
-                }}
-              />
+            <div className="border rounded-lg p-4 bg-gray-50 min-h-[300px] flex items-center justify-center">
+              {selectedReservation.payment.comprobanteUrl.endsWith('.pdf') ? (
+                <div className="text-center">
+                  <FileText className="mx-auto text-gray-400 mb-4" size={64} />
+                  <p className="text-gray-600 mb-4">Este es un archivo PDF</p>
+                  <a
+                    href={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary inline-flex items-center"
+                  >
+                    <FileText size={18} className="mr-2" />
+                    Abrir PDF
+                  </a>
+                </div>
+              ) : (
+                <img
+                  src={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
+                  alt="Comprobante de pago"
+                  className="max-w-full h-auto rounded"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent && !parent.querySelector('.error-message')) {
+                      const errorDiv = document.createElement('div');
+                      errorDiv.className = 'error-message text-center p-4 text-gray-500';
+                      errorDiv.innerHTML = '<p>No se pudo cargar la imagen.</p><p>El archivo puede ser un PDF o estar dañado.</p>';
+                      parent.appendChild(errorDiv);
+                    }
+                  }}
+                />
+              )}
             </div>
             <div className="flex justify-end">
               <a
