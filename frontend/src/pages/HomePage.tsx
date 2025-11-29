@@ -22,7 +22,7 @@ export const HomePage = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <div className="text-2xl font-bold text-primary-600">
-                ⚽ Reservas Cumbres
+                ⚽ Reservas
               </div>
               <a 
                 href="https://cumbresschool.es" 
