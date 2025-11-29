@@ -35,8 +35,15 @@ export const authenticate = async (
     req.userId = decoded.userId;
     req.userRole = decoded.role;
     next();
-  } catch (error) {
-    return res.status(401).json({ error: 'Token inválido' });
+  } catch (error: any) {
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({ error: 'Token inválido' });
+    }
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ error: 'Token expirado' });
+    }
+    console.error('Error en autenticación:', error);
+    return res.status(401).json({ error: 'Error al verificar token' });
   }
 };
 
