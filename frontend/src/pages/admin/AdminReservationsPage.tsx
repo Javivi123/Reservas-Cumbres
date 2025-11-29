@@ -411,7 +411,7 @@ export const AdminReservationsPage = () => {
             </div>
             <div className="flex justify-end">
               <a
-                href={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
+                href={`${getServerBaseUrl()}${selectedReservation.payment.comprobanteUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary"
@@ -426,4 +426,3 @@ export const AdminReservationsPage = () => {
     </div>
   );
 };
-
