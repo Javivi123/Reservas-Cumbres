@@ -15,10 +15,15 @@ import { Filter, Download, Check, X, FileText, Eye } from 'lucide-react';
 const getServerBaseUrl = (): string => {
   const apiUrl = import.meta.env.VITE_API_URL;
   if (apiUrl) {
-    // Si VITE_API_URL está definido, remover /api si existe y usar la base
+    // Si VITE_API_URL está definido (producción), remover /api si existe y usar la base
     return apiUrl.replace(/\/api$/, '');
   }
-  // Si no está definido, usar la URL relativa (funciona con el proxy de Vite)
+  // En desarrollo, Vite solo hace proxy de /api, no de /uploads
+  // Por lo tanto, necesitamos usar la URL completa del backend
+  if (import.meta.env.DEV) {
+    return 'http://localhost:3001';
+  }
+  // Fallback: URL relativa (solo funcionaría si el proxy incluyera /uploads)
   return '';
 };
 
