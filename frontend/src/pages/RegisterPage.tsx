@@ -15,6 +15,9 @@ const registerSchema = z.object({
   password: z.string().min(6, 'La contraseña debe tener al menos 6 caracteres'),
   confirmPassword: z.string(),
   specialRole: z.boolean().optional(),
+  acceptTerms: z.boolean().refine((val) => val === true, {
+    message: 'Debes aceptar las políticas de privacidad, protección de datos y normas de uso',
+  }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'Las contraseñas no coinciden',
   path: ['confirmPassword'],
@@ -126,6 +129,33 @@ export const RegisterPage = () => {
             <p className="text-xs text-gray-500">
               Tu solicitud será revisada por un administrador
             </p>
+
+            <div className="flex items-start">
+              <input
+                type="checkbox"
+                id="acceptTerms"
+                {...register('acceptTerms')}
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded mt-1"
+              />
+              <label htmlFor="acceptTerms" className="ml-2 block text-sm text-gray-700">
+                <span>Acepto las </span>
+                <Link to="/legal/privacidad" target="_blank" className="text-primary-600 hover:text-primary-700 underline">
+                  <span>políticas de privacidad</span>
+                </Link>
+                <span>, </span>
+                <Link to="/legal/privacidad" target="_blank" className="text-primary-600 hover:text-primary-700 underline">
+                  <span>protección de datos</span>
+                </Link>
+                <span> y </span>
+                <Link to="/legal/normas" target="_blank" className="text-primary-600 hover:text-primary-700 underline">
+                  <span>normas de uso de las instalaciones</span>
+                </Link>
+                <span className="text-red-600"> *</span>
+              </label>
+            </div>
+            {errors.acceptTerms && (
+              <p className="text-sm text-red-600 mt-1">{errors.acceptTerms.message}</p>
+            )}
 
             <Button type="submit" className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all" disabled={loading}>
               {loading ? (

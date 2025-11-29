@@ -46,21 +46,65 @@ export const LegalPage = () => {
     );
   }
 
+  const getPageStyle = () => {
+    if (page === 'privacidad') {
+      return {
+        bg: 'bg-gradient-to-br from-blue-50 to-cyan-50',
+        border: 'border-blue-200',
+        titleGradient: 'from-blue-600 to-cyan-600',
+        emoji: '🔒',
+      };
+    }
+    if (page === 'emergencia') {
+      return {
+        bg: 'bg-gradient-to-br from-red-50 to-orange-50',
+        border: 'border-red-200',
+        titleGradient: 'from-red-600 to-orange-600',
+        emoji: '🚨',
+      };
+    }
+    if (page === 'normas') {
+      return {
+        bg: 'bg-gradient-to-br from-green-50 to-emerald-50',
+        border: 'border-green-200',
+        titleGradient: 'from-green-600 to-emerald-600',
+        emoji: '📋',
+      };
+    }
+    return {
+      bg: 'bg-gradient-to-br from-purple-50 to-pink-50',
+      border: 'border-purple-200',
+      titleGradient: 'from-purple-600 to-pink-600',
+      emoji: '📄',
+    };
+  };
+
+  const pageStyle = getPageStyle();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Link
           to="/"
-          className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-6"
+          className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-6 transition-colors"
         >
           <ArrowLeft size={20} className="mr-2" />
-          Volver al inicio
+          <span>Volver al inicio</span>
         </Link>
 
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">{content.titulo}</h1>
+        <div className={`card ${pageStyle.bg} border-2 ${pageStyle.border} shadow-xl p-8`}>
+          <h1 className="text-4xl font-bold mb-6 flex items-center">
+            <span>{pageStyle.emoji}</span>
+            <span className={`bg-gradient-to-r ${pageStyle.titleGradient} bg-clip-text text-transparent ml-3`}>
+              {content.titulo}
+            </span>
+          </h1>
           <div
-            className="prose max-w-none"
+            className="prose max-w-none text-gray-700"
+            style={{
+              '--tw-prose-headings': 'text-gray-900',
+              '--tw-prose-links': 'text-primary-600',
+            } as React.CSSProperties}
             dangerouslySetInnerHTML={{ __html: content.contenido }}
           />
         </div>

@@ -7,6 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 import toast from 'react-hot-toast';
+import { ArrowLeft } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -50,6 +51,13 @@ export const LoginPage = () => {
         <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-pink-200 rounded-full opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
       <div className="max-w-md w-full relative z-10">
+        <Link
+          to="/"
+          className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-4 transition-colors"
+        >
+          <ArrowLeft size={20} className="mr-2" />
+          <span>Volver atrás</span>
+        </Link>
         <div className="card bg-white/90 backdrop-blur-sm border-2 border-purple-200 shadow-2xl">
           <div className="text-center mb-8">
             <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
