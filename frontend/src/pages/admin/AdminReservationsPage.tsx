@@ -8,7 +8,7 @@ import { Input } from '../../components/Input';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import toast from 'react-hot-toast';
-import { Calendar, Filter, Download, Check, X } from 'lucide-react';
+import { Calendar, Filter, Download, Check, X, FileText, Eye } from 'lucide-react';
 
 export const AdminReservationsPage = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -27,7 +27,7 @@ export const AdminReservationsPage = () => {
     totalPages: 0,
   });
   const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
-  const [actionModal, setActionModal] = useState<'approve' | 'reject' | null>(null);
+  const [actionModal, setActionModal] = useState<'approve' | 'reject' | 'view-comprobante' | null>(null);
   const [motivoRechazo, setMotivoRechazo] = useState('');
 
   useEffect(() => {
@@ -232,30 +232,47 @@ export const AdminReservationsPage = () => {
                     €{reservation.precioTotal.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {reservation.estado === 'PRE_RESERVADA' && (
-                      <div className="flex space-x-2">
+                    <div className="flex space-x-2">
+                      {reservation.payment?.comprobanteUrl && (
                         <Button
                           variant="secondary"
                           size="sm"
                           onClick={() => {
                             setSelectedReservation(reservation);
-                            setActionModal('approve');
+                            setActionModal('view-comprobante');
                           }}
+                          title="Ver comprobante"
                         >
-                          <Check size={16} />
+                          <Eye size={16} />
                         </Button>
-                        <Button
-                          variant="danger"
-                          size="sm"
-                          onClick={() => {
-                            setSelectedReservation(reservation);
-                            setActionModal('reject');
-                          }}
-                        >
-                          <X size={16} />
-                        </Button>
-                      </div>
-                    )}
+                      )}
+                      {reservation.estado === 'PRE_RESERVADA' && (
+                        <>
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedReservation(reservation);
+                              setActionModal('approve');
+                            }}
+                            title="Aprobar"
+                          >
+                            <Check size={16} />
+                          </Button>
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedReservation(reservation);
+                              setActionModal('reject');
+                            }}
+                            title="Rechazar"
+                          >
+                            <X size={16} />
+                          </Button>
+                        </>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -291,13 +308,13 @@ export const AdminReservationsPage = () => {
 
       {/* Modal de aprobación/rechazo */}
       <Modal
-        isOpen={actionModal !== null}
+        isOpen={actionModal !== null && actionModal !== 'view-comprobante'}
         onClose={() => {
           setActionModal(null);
           setSelectedReservation(null);
           setMotivoRechazo('');
         }}
-        title={actionModal === 'approve' ? 'Aprobar Reserva' : 'Rechazar Reserva'}
+        title={actionModal === 'approve' ? '✅ Aprobar Reserva' : '❌ Rechazar Reserva'}
       >
         {selectedReservation && (
           <div className="space-y-4">
@@ -338,6 +355,51 @@ export const AdminReservationsPage = () => {
               >
                 {actionModal === 'approve' ? 'Aprobar' : 'Rechazar'}
               </Button>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Modal de comprobante */}
+      <Modal
+        isOpen={actionModal === 'view-comprobante'}
+        onClose={() => {
+          setActionModal(null);
+          setSelectedReservation(null);
+        }}
+        title="📄 Comprobante de Pago"
+        size="lg"
+      >
+        {selectedReservation?.payment?.comprobanteUrl && (
+          <div className="space-y-4">
+            <p className="text-gray-600">
+              Comprobante de pago para la reserva de <strong>{selectedReservation.space?.nombre}</strong>
+            </p>
+            <div className="border rounded-lg p-4 bg-gray-50">
+              <img
+                src={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
+                alt="Comprobante de pago"
+                className="max-w-full h-auto rounded"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const errorDiv = document.createElement('div');
+                  errorDiv.className = 'text-center p-4 text-gray-500';
+                  errorDiv.textContent = 'No se pudo cargar la imagen. El archivo puede ser un PDF.';
+                  target.parentElement?.appendChild(errorDiv);
+                }}
+              />
+            </div>
+            <div className="flex justify-end">
+              <a
+                href={`http://localhost:3001${selectedReservation.payment.comprobanteUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <FileText size={18} className="mr-2" />
+                Abrir en nueva pestaña
+              </a>
             </div>
           </div>
         )}

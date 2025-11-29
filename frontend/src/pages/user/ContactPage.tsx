@@ -76,9 +76,18 @@ export const ContactPage = () => {
             )}
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            <Send size={18} className="mr-2" />
-            {loading ? 'Enviando...' : 'Enviar Mensaje'}
+          <Button type="submit" className="w-full flex items-center justify-center" disabled={loading}>
+            {loading ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                Enviando...
+              </>
+            ) : (
+              <>
+                <Send size={18} className="mr-2" />
+                Enviar Mensaje
+              </>
+            )}
           </Button>
         </form>
       </div>

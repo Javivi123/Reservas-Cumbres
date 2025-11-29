@@ -1,16 +1,42 @@
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { useAuth } from '../../contexts/AuthContext';
 import { userService } from '../../services/api';
 import { User } from '../../types';
 import { Badge } from '../../components/Badge';
-import { User as UserIcon, Mail, CreditCard, Shield } from 'lucide-react';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { Input } from '../../components/Input';
+import { Button } from '../../components/Button';
+import { User as UserIcon, Mail, CreditCard, Shield, Lock, Key } from 'lucide-react';
+import toast from 'react-hot-toast';
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'La contraseña actual es requerida'),
+  newPassword: z.string().min(6, 'La nueva contraseña debe tener al menos 6 caracteres'),
+  confirmPassword: z.string(),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: 'Las contraseñas no coinciden',
+  path: ['confirmPassword'],
+});
+
+type ChangePasswordForm = z.infer<typeof changePasswordSchema>;
 
 export const ProfilePage = () => {
   const { user: authUser } = useAuth();
   const [profile, setProfile] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [changingPassword, setChangingPassword] = useState(false);
+
+  const {
+    register: registerPassword,
+    handleSubmit: handleSubmitPassword,
+    formState: { errors: passwordErrors },
+    reset: resetPassword,
+  } = useForm<ChangePasswordForm>({
+    resolver: zodResolver(changePasswordSchema),
+  });
 
   useEffect(() => {
     loadProfile();
@@ -24,6 +50,20 @@ export const ProfilePage = () => {
       console.error('Error al cargar perfil:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleChangePassword = async (data: ChangePasswordForm) => {
+    setChangingPassword(true);
+    try {
+      await userService.changePassword(data.currentPassword, data.newPassword);
+      toast.success('✅ Contraseña cambiada exitosamente');
+      setShowPasswordForm(false);
+      resetPassword();
+    } catch (error: any) {
+      toast.error(error.response?.data?.error || 'Error al cambiar contraseña');
+    } finally {
+      setChangingPassword(false);
     }
   };
 
@@ -41,59 +81,123 @@ export const ProfilePage = () => {
 
   const getRoleBadge = () => {
     if (profile.role === 'ADMIN') {
-      return <Badge variant="info">Administrador</Badge>;
+      return <Badge variant="info">🛡️ Administrador</Badge>;
     }
     if (profile.role === 'SPECIAL_USER') {
-      return <Badge variant="success">Usuario Especial</Badge>;
+      return <Badge variant="success">⭐ Usuario Especial</Badge>;
     }
     if (profile.specialRolePending) {
-      return <Badge variant="warning">Pendiente de Aprobación</Badge>;
+      return <Badge variant="warning">⏳ Pendiente de Aprobación</Badge>;
     }
-    return <Badge variant="default">Usuario</Badge>;
+    return <Badge variant="default">👤 Usuario</Badge>;
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Mi Perfil</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+        👤 Mi Perfil
+      </h1>
 
-      <div className="card">
-        <div className="flex items-center space-x-4 mb-6">
-          <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
-            <UserIcon className="text-primary-600" size={32} />
+      <div className="space-y-6">
+        <div className="card">
+          <div className="flex items-center space-x-4 mb-6">
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
+              <UserIcon className="text-primary-600" size={32} />
+            </div>
+            <div>
+              <h2 className="text-2xl font-semibold">{profile.nombre}</h2>
+              <div className="mt-1">{getRoleBadge()}</div>
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl font-semibold">{profile.nombre}</h2>
-            <div className="mt-1">{getRoleBadge()}</div>
+
+          <div className="space-y-4">
+            <div className="flex items-center space-x-3">
+              <Mail className="text-gray-400" size={20} />
+              <div>
+                <p className="text-sm text-gray-600">📧 Email</p>
+                <p className="font-medium">{profile.email}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <CreditCard className="text-gray-400" size={20} />
+              <div>
+                <p className="text-sm text-gray-600">🆔 DNI</p>
+                <p className="font-medium">{profile.dni || 'No disponible'}</p>
+              </div>
+            </div>
+
+            {profile.specialRolePending && (
+              <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800">
+                  ⏳ Tu solicitud de precio especial está siendo revisada por un administrador.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center space-x-3">
-            <Mail className="text-gray-400" size={20} />
-            <div>
-              <p className="text-sm text-gray-600">Email</p>
-              <p className="font-medium">{profile.email}</p>
-            </div>
+        {/* Cambiar contraseña */}
+        <div className="card">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold flex items-center">
+              <Lock className="mr-2 text-primary-600" size={24} />
+              🔐 Cambiar Contraseña
+            </h2>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setShowPasswordForm(!showPasswordForm);
+                resetPassword();
+              }}
+            >
+              {showPasswordForm ? '❌ Cancelar' : '🔑 Cambiar'}
+            </Button>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <CreditCard className="text-gray-400" size={20} />
-            <div>
-              <p className="text-sm text-gray-600">DNI</p>
-              <p className="font-medium">{profile.dni || 'No disponible'}</p>
-            </div>
-          </div>
+          {showPasswordForm && (
+            <form onSubmit={handleSubmitPassword(handleChangePassword)} className="space-y-4">
+              <Input
+                label="Contraseña Actual"
+                type="password"
+                {...registerPassword('currentPassword')}
+                error={passwordErrors.currentPassword?.message}
+                placeholder="••••••••"
+              />
 
-          {profile.specialRolePending && (
-            <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <p className="text-sm text-yellow-800">
-                Tu solicitud de precio especial está siendo revisada por un administrador.
-              </p>
-            </div>
+              <Input
+                label="Nueva Contraseña"
+                type="password"
+                {...registerPassword('newPassword')}
+                error={passwordErrors.newPassword?.message}
+                placeholder="••••••••"
+              />
+
+              <Input
+                label="Confirmar Nueva Contraseña"
+                type="password"
+                {...registerPassword('confirmPassword')}
+                error={passwordErrors.confirmPassword?.message}
+                placeholder="••••••••"
+              />
+
+              <Button type="submit" className="w-full" disabled={changingPassword}>
+                {changingPassword ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Cambiando...
+                  </>
+                ) : (
+                  <>
+                    <Key size={18} className="mr-2" />
+                    Cambiar Contraseña
+                  </>
+                )}
+              </Button>
+            </form>
           )}
         </div>
       </div>
     </div>
   );
 };
-

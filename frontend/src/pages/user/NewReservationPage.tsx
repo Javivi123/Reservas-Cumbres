@@ -72,10 +72,10 @@ export const NewReservationPage = () => {
   }, [fecha, spaceId]);
 
   useEffect(() => {
-    if (selectedSpace && luz !== undefined) {
+    if (selectedSpace) {
       calculatePrice();
     }
-  }, [selectedSpace, luz]);
+  }, [selectedSpace, luz, user]);
 
   const loadSpaces = async () => {
     try {
@@ -110,7 +110,10 @@ export const NewReservationPage = () => {
   };
 
   const calculatePrice = () => {
-    if (!selectedSpace) return;
+    if (!selectedSpace) {
+      setPricing(null);
+      return;
+    }
 
     const isSpecialUser = user?.role === 'SPECIAL_USER';
     const precioBase = isSpecialUser
@@ -160,34 +163,45 @@ export const NewReservationPage = () => {
             Selecciona una Pista
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
-            {spaces.map((space) => (
-              <label
-                key={space.id}
-                className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
-                  spaceId === space.id
-                    ? 'border-primary-600 bg-primary-50'
-                    : 'border-gray-200 hover:border-primary-300'
-                }`}
-              >
-                <input
-                  type="radio"
-                  value={space.id}
-                  {...register('spaceId')}
-                  className="sr-only"
-                />
-                <div>
-                  <h3 className="font-semibold">{space.nombre}</h3>
-                  <p className="text-sm text-gray-600 mt-1">
-                    General: €{space.precioBase} | Especial: €{space.precioEspecial}
-                  </p>
-                  {space.luzIncluida && (
-                    <Badge variant="info" className="mt-2">
-                      Luz incluida
-                    </Badge>
-                  )}
-                </div>
-              </label>
-            ))}
+            {spaces.map((space) => {
+              const getEmoji = () => {
+                if (space.tipo.includes('cesped')) return '⚽';
+                if (space.tipo.includes('multi')) return '🏀';
+                if (space.tipo.includes('padel')) return '🎾';
+                return '🏟️';
+              };
+              return (
+                <label
+                  key={space.id}
+                  className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-lg ${
+                    spaceId === space.id
+                      ? 'border-primary-600 bg-primary-50 scale-105'
+                      : 'border-gray-200 hover:border-primary-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    value={space.id}
+                    {...register('spaceId')}
+                    className="sr-only"
+                  />
+                  <div>
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="text-3xl animate-bounce-slow">{getEmoji()}</span>
+                      <h3 className="font-semibold text-lg">{space.nombre}</h3>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-1">
+                      💰 General: €{space.precioBase} | ⭐ Especial: €{space.precioEspecial}
+                    </p>
+                    {space.luzIncluida && (
+                      <Badge variant="info" className="mt-2">
+                        💡 Luz incluida
+                      </Badge>
+                    )}
+                  </div>
+                </label>
+              );
+            })}
           </div>
           {errors.spaceId && (
             <p className="mt-2 text-sm text-red-600">{errors.spaceId.message}</p>
@@ -281,33 +295,42 @@ export const NewReservationPage = () => {
         )}
 
         {/* Resumen y precio */}
-        {pricing && (
+        {selectedSpace && (
           <div className="card bg-primary-50">
             <h2 className="text-xl font-semibold mb-4 flex items-center">
               <Euro className="mr-2 text-primary-600" size={24} />
-              Resumen del Pedido
+              💰 Resumen del Pedido
             </h2>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span>Precio base:</span>
-                <span>€{pricing.precioBase.toFixed(2)}</span>
-              </div>
-              {pricing.precioLuz > 0 && (
+            {pricing ? (
+              <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span>Iluminación:</span>
-                  <span>€{pricing.precioLuz.toFixed(2)}</span>
+                  <span>Precio base:</span>
+                  <span>€{pricing.precioBase.toFixed(2)}</span>
                 </div>
-              )}
-              <div className="flex justify-between text-xl font-bold pt-2 border-t border-primary-200">
-                <span>Total:</span>
-                <span className="text-primary-600">€{pricing.precioTotal.toFixed(2)}</span>
+                {pricing.precioLuz > 0 && (
+                  <div className="flex justify-between">
+                    <span>💡 Iluminación:</span>
+                    <span>€{pricing.precioLuz.toFixed(2)}</span>
+                  </div>
+                )}
+                {selectedSpace.luzIncluida && (
+                  <div className="flex justify-between text-sm text-green-600">
+                    <span>✨ Luz incluida</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-xl font-bold pt-2 border-t border-primary-200">
+                  <span>Total:</span>
+                  <span className="text-primary-600 text-2xl">€{pricing.precioTotal.toFixed(2)}</span>
+                </div>
               </div>
-            </div>
+            ) : (
+              <p className="text-gray-600">Selecciona una pista para ver el precio</p>
+            )}
           </div>
         )}
 
-        <Button type="submit" className="w-full" disabled={loading || !pricing}>
-          {loading ? 'Creando reserva...' : 'Crear Reserva'}
+        <Button type="submit" className="w-full text-lg py-3" disabled={loading || !pricing || !franja}>
+          {loading ? '⏳ Creando reserva...' : '✅ Crear Reserva'}
         </Button>
       </form>
     </div>

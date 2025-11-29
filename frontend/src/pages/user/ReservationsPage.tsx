@@ -80,13 +80,16 @@ export const ReservationsPage = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Mis Reservas</h1>
+        <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+          📅 Mis Reservas
+        </h1>
       </div>
 
       {reservations.length === 0 ? (
         <div className="card text-center py-12">
-          <Calendar className="mx-auto text-gray-400 mb-4" size={48} />
-          <p className="text-gray-600 mb-4">No tienes reservas aún</p>
+          <Calendar className="mx-auto text-gray-400 mb-4 animate-bounce-slow" size={48} />
+          <p className="text-gray-600 mb-4 text-lg">📭 No tienes reservas aún</p>
+          <p className="text-gray-500">¡Crea tu primera reserva ahora! 🚀</p>
         </div>
       ) : (
         <div className="grid gap-6">

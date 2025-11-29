@@ -176,6 +176,13 @@ export const userService = {
     const { data } = await api.post('/users/contact', { asunto, mensaje });
     return data;
   },
+  changePassword: async (currentPassword: string, newPassword: string) => {
+    const { data } = await api.post('/users/change-password', {
+      currentPassword,
+      newPassword,
+    });
+    return data;
+  },
 };
 
 export const legalService = {

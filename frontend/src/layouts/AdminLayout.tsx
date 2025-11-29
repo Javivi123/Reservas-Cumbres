@@ -35,13 +35,7 @@ export const AdminLayout = () => {
               </Link>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">{user?.nombre}</span>
-              <Link
-                to="/user"
-                className="text-sm text-primary-600 hover:text-primary-700"
-              >
-                Ver como usuario
-              </Link>
+              <span className="text-sm text-gray-600">👤 {user?.nombre}</span>
               <button
                 onClick={logout}
                 className="flex items-center space-x-1 text-gray-600 hover:text-gray-900 transition-colors"
