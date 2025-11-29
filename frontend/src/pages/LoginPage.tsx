@@ -33,7 +33,7 @@ export const LoginPage = () => {
     try {
       await login(data.email, data.password);
       toast.success('¡Bienvenido!');
-      navigate('/user');
+      navigate('/');
     } catch (error: any) {
       toast.error(error.response?.data?.error || 'Error al iniciar sesión');
     } finally {
