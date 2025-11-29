@@ -198,13 +198,23 @@ El esquema de Prisma incluye:
 
 ## 🚀 Despliegue
 
-### Vercel (Frontend)
+### Configuración de Entornos
 
-1. Conecta tu repositorio a Vercel
+#### Desarrollo
+- **No requiere configuración adicional**: La app detecta automáticamente que está en desarrollo
+- Usa `http://localhost:3001` para archivos estáticos (comprobantes)
+- El proxy de Vite maneja automáticamente las rutas `/api` y `/uploads`
+
+#### Producción
+
+**Frontend (Vercel/Netlify/etc):**
+1. Conecta tu repositorio
 2. Configura el directorio raíz como `frontend`
-3. Añade las variables de entorno:
-   - `VITE_API_URL`: URL completa de tu backend API (ej: `https://api.tudominio.com/api`)
-     - **Importante**: Esta variable es necesaria para que los comprobantes de pago se carguen correctamente en producción
+3. Añade la variable de entorno:
+   - **`VITE_API_URL`** (Recomendado): URL completa de tu backend API
+     - Ejemplo: `https://api.tudominio.com/api`
+     - **Importante**: Necesaria si frontend y backend están en dominios diferentes
+     - Si no se define, la app usará URLs relativas (solo funciona si están en el mismo dominio o hay proxy reverso)
 
 ### Railway / Render (Backend)
 
