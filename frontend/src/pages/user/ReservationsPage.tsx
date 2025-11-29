@@ -80,26 +80,36 @@ export const ReservationsPage = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 flex items-center">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center">
           📅 Mis Reservas
         </h1>
       </div>
 
       {reservations.length === 0 ? (
-        <div className="card text-center py-12">
-          <Calendar className="mx-auto text-gray-400 mb-4 animate-bounce-slow" size={48} />
-          <p className="text-gray-600 mb-4 text-lg">📭 No tienes reservas aún</p>
-          <p className="text-gray-500">¡Crea tu primera reserva ahora! 🚀</p>
+        <div className="card text-center py-12 bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-dashed border-blue-300">
+          <Calendar className="mx-auto text-blue-400 mb-4 animate-bounce-slow" size={48} />
+          <p className="text-gray-700 mb-4 text-lg font-semibold">📭 No tienes reservas aún</p>
+          <p className="text-gray-600">¡Crea tu primera reserva ahora! 🚀</p>
         </div>
       ) : (
         <div className="grid gap-6">
-          {reservations.map((reservation) => (
-            <div key={reservation.id} className="card">
+          {reservations.map((reservation, index) => {
+            const gradientColors = [
+              'from-blue-500 to-cyan-500',
+              'from-green-500 to-emerald-500',
+              'from-purple-500 to-pink-500',
+              'from-orange-500 to-red-500',
+            ];
+            const gradient = gradientColors[index % gradientColors.length];
+            return (
+            <div key={reservation.id} className={`card bg-gradient-to-br ${gradient} bg-opacity-10 border-2 border-${gradient.split(' ')[0].split('-')[1]}-200 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]`}>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-4 mb-4">
-                    <MapPin className="text-primary-600" size={20} />
-                    <h3 className="text-xl font-semibold">{reservation.space?.nombre}</h3>
+                    <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} bg-opacity-20`}>
+                      <MapPin className={`text-${gradient.split(' ')[0].split('-')[1]}-600`} size={20} />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-800">{reservation.space?.nombre}</h3>
                     {getStatusBadge(reservation.estado)}
                   </div>
 

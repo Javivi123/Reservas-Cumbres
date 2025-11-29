@@ -152,14 +152,16 @@ export const NewReservationPage = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Nueva Reserva</h1>
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-6 flex items-center">
+        ✨ Nueva Reserva
+      </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Selección de pista */}
-        <div className="card">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <MapPin className="mr-2 text-primary-600" size={24} />
-            Selecciona una Pista
+        <div className="card bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
+          <h2 className="text-xl font-semibold mb-4 flex items-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <MapPin className="mr-2 text-blue-600" size={24} />
+            🏟️ Selecciona una Pista
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {spaces.map((space) => {
@@ -169,13 +171,19 @@ export const NewReservationPage = () => {
                 if (space.tipo.includes('padel')) return '🎾';
                 return '🏟️';
               };
+              const spaceColors = {
+                'cesped': 'from-green-500 to-emerald-500',
+                'multi': 'from-orange-500 to-red-500',
+                'padel': 'from-purple-500 to-pink-500',
+              };
+              const spaceGradient = spaceColors[space.tipo as keyof typeof spaceColors] || 'from-blue-500 to-cyan-500';
               return (
                 <label
                   key={space.id}
-                  className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-lg ${
+                  className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-xl transform hover:scale-105 ${
                     spaceId === space.id
-                      ? 'border-primary-600 bg-primary-50 scale-105'
-                      : 'border-gray-200 hover:border-primary-300'
+                      ? `border-${spaceGradient.split(' ')[0].split('-')[1]}-500 bg-gradient-to-br ${spaceGradient} bg-opacity-20 scale-105 shadow-lg`
+                      : 'border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50'
                   }`}
                 >
                   <input
@@ -294,9 +302,9 @@ export const NewReservationPage = () => {
 
         {/* Resumen y precio */}
         {selectedSpace && (
-          <div className="card bg-primary-50">
-            <h2 className="text-xl font-semibold mb-4 flex items-center">
-              <Euro className="mr-2 text-primary-600" size={24} />
+          <div className="card bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200">
+            <h2 className="text-xl font-semibold mb-4 flex items-center bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              <Euro className="mr-2 text-green-600" size={24} />
               💰 Resumen del Pedido
             </h2>
             {pricing ? (
@@ -316,9 +324,9 @@ export const NewReservationPage = () => {
                     <span>✨ Luz incluida</span>
                   </div>
                 )}
-                <div className="flex justify-between text-xl font-bold pt-2 border-t border-primary-200">
-                  <span>Total:</span>
-                  <span className="text-primary-600 text-2xl">€{pricing.precioTotal.toFixed(2)}</span>
+                <div className="flex justify-between text-xl font-bold pt-2 border-t-2 border-green-300">
+                  <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Total:</span>
+                  <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent text-3xl font-extrabold">€{pricing.precioTotal.toFixed(2)}</span>
                 </div>
               </div>
             ) : (
@@ -327,7 +335,7 @@ export const NewReservationPage = () => {
           </div>
         )}
 
-        <Button type="submit" className="w-full text-lg py-3" disabled={loading || !pricing || !franja}>
+        <Button type="submit" className="w-full text-lg py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all" disabled={loading || !pricing || !franja}>
           {loading ? '⏳ Creando reserva...' : '✅ Crear Reserva'}
         </Button>
       </form>

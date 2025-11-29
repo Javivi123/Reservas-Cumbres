@@ -94,15 +94,15 @@ export const ProfilePage = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 flex items-center">
         👤 Mi Perfil
       </h1>
 
       <div className="space-y-6">
-        <div className="card">
+        <div className="card bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200">
           <div className="flex items-center space-x-4 mb-6">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
-              <UserIcon className="text-primary-600" size={32} />
+            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+              <UserIcon className="text-white" size={32} />
             </div>
             <div>
               <h2 className="text-2xl font-semibold">{profile.nombre}</h2>
@@ -138,10 +138,10 @@ export const ProfilePage = () => {
         </div>
 
         {/* Cambiar contraseña */}
-        <div className="card">
+        <div className="card bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold flex items-center">
-              <Lock className="mr-2 text-primary-600" size={24} />
+            <h2 className="text-xl font-semibold flex items-center bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+              <Lock className="mr-2 text-orange-600" size={24} />
               🔐 Cambiar Contraseña
             </h2>
             <Button
