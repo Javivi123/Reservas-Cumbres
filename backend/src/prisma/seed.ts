@@ -81,12 +81,19 @@ async function main() {
   ];
 
   for (const pista of pistas) {
-    const created = await prisma.space.upsert({
+    // Verificar si ya existe
+    const existing = await prisma.space.findFirst({
       where: { nombre: pista.nombre },
-      update: {},
-      create: pista,
     });
-    console.log('✅ Pista creada:', created.nombre);
+
+    if (!existing) {
+      const created = await prisma.space.create({
+        data: pista,
+      });
+      console.log('✅ Pista creada:', created.nombre);
+    } else {
+      console.log('ℹ️  Pista ya existe:', pista.nombre);
+    }
   }
 
   console.log('🎉 Seed completado!');

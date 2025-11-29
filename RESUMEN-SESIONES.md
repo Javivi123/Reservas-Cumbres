@@ -145,10 +145,17 @@ Este documento registra todos los cambios y mejoras realizadas en la aplicación
 
 ### Cómo cambiar a MySQL en producción:
 1. Cambiar en `prisma/schema.prisma`: `provider = "mysql"`
-2. Cambiar en `.env`: `DATABASE_URL="mysql://usuario:contraseña@localhost:3306/reservas_cumbres"`
-3. Ejecutar: `npx prisma migrate dev`
+2. Restaurar los enums en el schema (UserRole, ReservationStatus, PaymentStatus)
+3. Cambiar en `.env`: `DATABASE_URL="mysql://usuario:contraseña@localhost:3306/reservas_cumbres"`
+4. Ejecutar: `npx prisma migrate dev`
+
+### Correcciones Realizadas
+- ✅ Convertidos enums a String (SQLite no soporta enums)
+- ✅ Corregido seed.ts para usar findFirst/create en lugar de upsert con nombre
+- ✅ Base de datos creada exitosamente
+- ✅ Seed ejecutado correctamente (usuarios admin y de prueba, 4 pistas)
 
 ---
 
-**Última actualización**: Sesión 2 - Configuración SQLite para desarrollo
+**Última actualización**: Sesión 2 - Configuración SQLite para desarrollo (completado)
 
