@@ -107,7 +107,7 @@ export const ReservationsPage = () => {
                 <div className="flex-1">
                   <div className="flex items-center space-x-4 mb-4">
                     <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} bg-opacity-20`}>
-                      <MapPin className={`text-${gradient.split(' ')[0].split('-')[1]}-600`} size={20} />
+                      <MapPin className="text-gray-700" size={20} />
                     </div>
                     <h3 className="text-xl font-semibold text-gray-800">{reservation.space?.nombre}</h3>
                     {getStatusBadge(reservation.estado)}
