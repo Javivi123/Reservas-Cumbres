@@ -253,5 +253,60 @@ npx prisma migrate dev
 
 ---
 
-**Última actualización**: Sesión 4 - Mejoras visuales y funcionales completadas
+## Sesión 5 - Mejoras de UI/UX y Funcionalidad Legal (Fecha: 2025)
+
+### Cambios Realizados
+
+#### Mejoras de Navegación
+- ✅ **Botón de volver atrás en LoginPage:** Añadido botón para volver a la página principal desde el login con icono ArrowLeft
+
+#### Panel Admin Mejorado
+- ✅ **Header con gradiente:** Fondo azul-púrpura-rosa con texto blanco
+- ✅ **Sidebar con colores:** Cada item de navegación tiene un gradiente de color diferente (azul, verde, púrpura, naranja, índigo)
+- ✅ **Diseño más atractivo:** Efectos hover, sombras y transiciones mejoradas
+- ✅ **Emojis añadidos:** Icono de escudo en el header
+
+#### Páginas Legales Mejoradas
+- ✅ **LegalPage con diseño dinámico:**
+  - Colores según el tipo de página (privacidad: azul, emergencia: rojo, normas: verde)
+  - Emojis en los títulos
+  - Fondo con gradiente según la página
+  - Mejor legibilidad y estructura visual
+
+- ✅ **Backend legal routes mejorado:**
+  - **Privacidad:** Cajas de colores para cada sección (azul, cian, verde, amarillo, rosa, púrpura, índigo)
+  - **Emergencia:** Diseño con números destacados, protocolos claros
+  - **Normas de uso:** Diseño intuitivo con:
+    - Cajas de colores para cada sección
+    - Emojis en cada punto
+    - Texto destacado con colores
+    - Mejor estructura visual y legibilidad
+
+#### Registro con Validación Legal
+- ✅ **Casilla obligatoria de políticas:**
+  - Validación con Zod (debe ser true)
+  - Checkbox con enlaces a las tres políticas:
+    - Política de privacidad
+    - Protección de datos
+    - Normas de uso de las instalaciones
+  - Los enlaces se abren en nueva pestaña
+  - Mensaje de error claro si no se acepta
+  - Asterisco rojo indicando campo obligatorio
+
+### Archivos Modificados
+- `frontend/src/pages/LoginPage.tsx` - Botón volver atrás
+- `frontend/src/layouts/AdminLayout.tsx` - Colores y gradientes
+- `frontend/src/pages/LegalPage.tsx` - Diseño con colores dinámicos
+- `frontend/src/pages/RegisterPage.tsx` - Casilla obligatoria de políticas
+- `backend/src/routes/legal.ts` - Contenido HTML mejorado con emojis y colores
+
+### Mejoras Técnicas
+- Separación de emojis de elementos con gradientes para evitar que se coloreen
+- Validación robusta con Zod para aceptación de políticas
+- Diseño responsive mantenido en todas las mejoras
+- Código limpio y bien estructurado
+
+---
+
+**Última actualización**: Sesión 5 - Mejoras de UI/UX y funcionalidad legal completadas
 
