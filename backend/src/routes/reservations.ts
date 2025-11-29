@@ -330,5 +330,60 @@ router.patch(
   }
 );
 
+// Eliminar reserva (solo si está rechazada o la fecha ya pasó)
+router.delete('/:id', authenticate, async (req: AuthRequest, res) => {
+  try {
+    const reservation = await prisma.reservation.findUnique({
+      where: { id: req.params.id },
+      include: { payment: true },
+    });
+
+    if (!reservation) {
+      return res.status(404).json({ error: 'Reserva no encontrada' });
+    }
+
+    // Solo el dueño puede borrar su reserva
+    if (reservation.userId !== req.userId) {
+      return res.status(403).json({ error: 'No tienes permiso para eliminar esta reserva' });
+    }
+
+    // Solo se puede borrar si está rechazada o la fecha ya pasó
+    const fechaReserva = new Date(reservation.fecha);
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    fechaReserva.setHours(0, 0, 0, 0);
+
+    const puedeBorrar = 
+      reservation.estado === 'LIBRE' || 
+      reservation.payment?.status === 'RECHAZADO' ||
+      fechaReserva < hoy;
+
+    if (!puedeBorrar) {
+      return res.status(400).json({ 
+        error: 'Solo puedes eliminar reservas rechazadas o con fecha pasada' 
+      });
+    }
+
+    // Eliminar reserva (los pagos y logs se eliminan en cascada)
+    await prisma.reservation.delete({
+      where: { id: reservation.id },
+    });
+
+    // Crear log
+    await prisma.log.create({
+      data: {
+        action: 'deleted',
+        userId: req.userId,
+        detalles: JSON.stringify({ reservationId: reservation.id }),
+      },
+    });
+
+    res.json({ message: 'Reserva eliminada exitosamente' });
+  } catch (error) {
+    console.error('Error al eliminar reserva:', error);
+    res.status(500).json({ error: 'Error al eliminar reserva' });
+  }
+});
+
 export { router as reservationRoutes };
 

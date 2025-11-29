@@ -4,7 +4,7 @@ import { Reservation } from '../../types';
 import { Badge } from '../../components/Badge';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Calendar, MapPin, Euro, Upload, Eye } from 'lucide-react';
+import { Calendar, MapPin, Euro, Upload, Eye, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Modal } from '../../components/Modal';
 import { Button } from '../../components/Button';
@@ -15,6 +15,7 @@ export const ReservationsPage = () => {
   const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
   const [uploading, setUploading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [deletingReservationId, setDeletingReservationId] = useState<string | null>(null);
 
   useEffect(() => {
     loadReservations();
@@ -57,15 +58,45 @@ export const ReservationsPage = () => {
   const getStatusBadge = (estado: string) => {
     switch (estado) {
       case 'RESERVADA':
-        return <Badge variant="success">Reservada</Badge>;
+        return <Badge variant="success">✅ Reservada</Badge>;
       case 'PRE_RESERVADA':
-        return <Badge variant="warning">Pendiente de Pago</Badge>;
+        return <Badge variant="warning">⏳ Pendiente de Pago</Badge>;
       case 'LIBRE':
         return <Badge variant="default">Libre</Badge>;
       case 'NO_DISPONIBLE':
         return <Badge variant="danger">No Disponible</Badge>;
       default:
         return <Badge variant="default">{estado}</Badge>;
+    }
+  };
+
+  const canDeleteReservation = (reservation: Reservation) => {
+    const fechaReserva = new Date(reservation.fecha);
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    fechaReserva.setHours(0, 0, 0, 0);
+    
+    return (
+      reservation.estado === 'LIBRE' ||
+      reservation.payment?.status === 'RECHAZADO' ||
+      fechaReserva < hoy
+    );
+  };
+
+  const handleDeleteReservation = async (id: string) => {
+    if (!confirm('¿Estás seguro de que deseas eliminar esta reserva?')) {
+      return;
+    }
+
+    setDeletingReservationId(id);
+    try {
+      await reservationService.delete(id);
+      toast.success('Reserva eliminada exitosamente');
+      loadReservations();
+    } catch (error: any) {
+      toast.error(error.response?.data?.error || 'Error al eliminar reserva');
+    } finally {
+      setDeletingReservationId(null);
     }
   };
 
@@ -94,13 +125,42 @@ export const ReservationsPage = () => {
       ) : (
         <div className="grid gap-6">
           {reservations.map((reservation) => {
+            const canDelete = canDeleteReservation(reservation);
+            const fechaReserva = new Date(reservation.fecha);
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+            fechaReserva.setHours(0, 0, 0, 0);
+            const isPast = fechaReserva < hoy;
+            
+            // Colores sutiles según el estado
+            const getCardStyle = () => {
+              if (reservation.estado === 'RESERVADA') {
+                return 'bg-gradient-to-br from-green-50 to-white border-green-200';
+              }
+              if (reservation.payment?.status === 'RECHAZADO' || isPast) {
+                return 'bg-gradient-to-br from-red-50 to-white border-red-200';
+              }
+              if (reservation.estado === 'PRE_RESERVADA') {
+                return 'bg-gradient-to-br from-yellow-50 to-white border-yellow-200';
+              }
+              return 'bg-white border-gray-200';
+            };
+
             return (
-              <div key={reservation.id} className="card bg-white border-2 border-gray-200 shadow-md hover:shadow-lg transition-all">
+              <div key={reservation.id} className={`card ${getCardStyle()} border-2 shadow-md hover:shadow-lg transition-all`}>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-4 mb-4">
-                      <div className="p-2 rounded-lg bg-blue-100">
-                        <MapPin className="text-blue-600" size={20} />
+                      <div className={`p-2 rounded-lg ${
+                        reservation.estado === 'RESERVADA' ? 'bg-green-100' :
+                        reservation.payment?.status === 'RECHAZADO' || isPast ? 'bg-red-100' :
+                        'bg-blue-100'
+                      }`}>
+                        <MapPin className={
+                          reservation.estado === 'RESERVADA' ? 'text-green-600' :
+                          reservation.payment?.status === 'RECHAZADO' || isPast ? 'text-red-600' :
+                          'text-blue-600'
+                        } size={20} />
                       </div>
                       <h3 className="text-xl font-semibold text-gray-800">{reservation.space?.nombre}</h3>
                       {getStatusBadge(reservation.estado)}
@@ -159,9 +219,23 @@ export const ReservationsPage = () => {
                           className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white"
                         >
                           <Upload size={18} className="mr-2" />
-                          📤 Subir Comprobante
+                          Subir Comprobante
                         </Button>
                       )}
+                    {canDelete && (
+                      <Button
+                        variant="danger"
+                        onClick={() => handleDeleteReservation(reservation.id)}
+                        disabled={deletingReservationId === reservation.id}
+                        className="bg-red-500 hover:bg-red-600 text-white"
+                      >
+                        {deletingReservationId === reservation.id ? (
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        ) : (
+                          <Trash2 size={18} />
+                        )}
+                      </Button>
+                    )}
                     <Button
                       variant="secondary"
                       onClick={() => {

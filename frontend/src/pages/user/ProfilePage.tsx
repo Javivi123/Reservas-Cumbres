@@ -181,7 +181,7 @@ export const ProfilePage = () => {
                 placeholder="••••••••"
               />
 
-              <Button type="submit" className="w-full" disabled={changingPassword}>
+              <Button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all" disabled={changingPassword}>
                 {changingPassword ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>

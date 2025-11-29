@@ -102,6 +102,10 @@ export const reservationService = {
     });
     return data;
   },
+  delete: async (id: string) => {
+    const { data } = await api.delete(`/reservations/${id}`);
+    return data;
+  },
 };
 
 export const adminService = {

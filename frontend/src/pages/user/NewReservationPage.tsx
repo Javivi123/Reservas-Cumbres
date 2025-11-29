@@ -171,23 +171,14 @@ export const NewReservationPage = () => {
                 if (space.tipo.includes('padel')) return '🎾';
                 return '🏟️';
               };
-              const spaceColors = {
-                'cesped': 'from-green-500 to-emerald-500',
-                'multi': 'from-orange-500 to-red-500',
-                'padel': 'from-purple-500 to-pink-500',
-              };
-              const spaceGradient = spaceColors[space.tipo as keyof typeof spaceColors] || 'from-blue-500 to-cyan-500';
               return (
                 <label
                   key={space.id}
-                  className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-xl transform hover:scale-105 ${
+                  className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-lg ${
                     spaceId === space.id
-                      ? `bg-gradient-to-br ${spaceGradient} bg-opacity-20 scale-105 shadow-lg`
-                      : 'border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50'
+                      ? 'border-blue-500 bg-blue-50 scale-105 shadow-md'
+                      : 'border-gray-200 hover:border-blue-300 bg-white hover:bg-gray-50'
                   }`}
-                  style={spaceId === space.id ? {
-                    borderColor: space.tipo.includes('cesped') ? '#22c55e' : space.tipo.includes('multi') ? '#f97316' : '#a855f7'
-                  } : {}}
                 >
                   <input
                     type="radio"
