@@ -182,9 +182,12 @@ export const NewReservationPage = () => {
                   key={space.id}
                   className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-xl transform hover:scale-105 ${
                     spaceId === space.id
-                      ? `border-${spaceGradient.split(' ')[0].split('-')[1]}-500 bg-gradient-to-br ${spaceGradient} bg-opacity-20 scale-105 shadow-lg`
+                      ? `bg-gradient-to-br ${spaceGradient} bg-opacity-20 scale-105 shadow-lg`
                       : 'border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50'
                   }`}
+                  style={spaceId === space.id ? {
+                    borderColor: space.tipo.includes('cesped') ? '#22c55e' : space.tipo.includes('multi') ? '#f97316' : '#a855f7'
+                  } : {}}
                 >
                   <input
                     type="radio"

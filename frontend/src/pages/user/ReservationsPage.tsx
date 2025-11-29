@@ -102,7 +102,7 @@ export const ReservationsPage = () => {
             ];
             const gradient = gradientColors[index % gradientColors.length];
             return (
-            <div key={reservation.id} className={`card bg-gradient-to-br ${gradient} bg-opacity-10 border-2 border-${gradient.split(' ')[0].split('-')[1]}-200 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]`}>
+            <div key={reservation.id} className={`card bg-gradient-to-br ${gradient} bg-opacity-10 border-2 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]`} style={{ borderColor: `rgba(${index % 4 === 0 ? '59, 130, 246' : index % 4 === 1 ? '34, 197, 94' : index % 4 === 2 ? '168, 85, 247' : '249, 115, 22'}, 0.3)` }}>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-4 mb-4">
