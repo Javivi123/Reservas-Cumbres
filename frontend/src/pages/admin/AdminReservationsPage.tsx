@@ -14,16 +14,32 @@ import { Filter, Download, Check, X, FileText, Eye } from 'lucide-react';
 // Usa la misma lógica que api.ts pero para archivos estáticos (sin /api)
 const getServerBaseUrl = (): string => {
   const apiUrl = import.meta.env.VITE_API_URL;
+  
   if (apiUrl) {
     // Si VITE_API_URL está definido (producción), remover /api si existe y usar la base
+    // Ejemplo: "https://api.tudominio.com/api" -> "https://api.tudominio.com"
     return apiUrl.replace(/\/api$/, '');
   }
+  
   // En desarrollo, Vite solo hace proxy de /api, no de /uploads
   // Por lo tanto, necesitamos usar la URL completa del backend
   if (import.meta.env.DEV) {
     return 'http://localhost:3001';
   }
-  // Fallback: URL relativa (solo funcionaría si el proxy incluyera /uploads)
+  
+  // En producción sin VITE_API_URL:
+  // Intentar inferir la URL del backend desde window.location
+  // Esto funciona si el frontend y backend están en el mismo dominio
+  // O si hay un proxy reverso configurado (ej: Nginx, Cloudflare)
+  if (typeof window !== 'undefined') {
+    const { protocol, hostname } = window.location;
+    // Si estamos en producción, asumimos que el backend está en el mismo dominio
+    // o que hay un proxy que maneja /uploads
+    // En la mayoría de casos, esto funcionará con URLs relativas
+    return '';
+  }
+  
+  // Fallback para SSR (aunque no se usa en este proyecto)
   return '';
 };
 

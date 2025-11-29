@@ -202,7 +202,9 @@ El esquema de Prisma incluye:
 
 1. Conecta tu repositorio a Vercel
 2. Configura el directorio raíz como `frontend`
-3. Añade la variable de entorno `VITE_API_URL` con la URL de tu backend
+3. Añade las variables de entorno:
+   - `VITE_API_URL`: URL completa de tu backend API (ej: `https://api.tudominio.com/api`)
+     - **Importante**: Esta variable es necesaria para que los comprobantes de pago se carguen correctamente en producción
 
 ### Railway / Render (Backend)
 
