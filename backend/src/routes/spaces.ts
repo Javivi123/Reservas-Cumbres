@@ -53,13 +53,19 @@ router.get('/:id/availability', async (req, res) => {
       return res.status(404).json({ error: 'Pista no encontrada' });
     }
 
+    // Crear fechas sin modificar el objeto original (compatible con SQLite y MySQL)
+    const fechaInicio = new Date(fechaDate);
+    fechaInicio.setHours(0, 0, 0, 0);
+    const fechaFin = new Date(fechaDate);
+    fechaFin.setHours(23, 59, 59, 999);
+
     // Obtener reservas para esa fecha
     const reservations = await prisma.reservation.findMany({
       where: {
         spaceId: req.params.id,
         fecha: {
-          gte: new Date(fechaDate.setHours(0, 0, 0, 0)),
-          lt: new Date(fechaDate.setHours(23, 59, 59, 999)),
+          gte: fechaInicio,
+          lte: fechaFin,
         },
         estado: {
           in: ['PRE_RESERVADA', 'RESERVADA', 'NO_DISPONIBLE'],

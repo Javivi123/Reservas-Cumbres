@@ -19,6 +19,8 @@ Sistema web completo para la gestión de reservas de pistas deportivas de un col
 - MySQL 8+ (o compatible) - Para producción (opcional)
 - Git
 
+> **Nota**: La aplicación está configurada para funcionar con **SQLite** (desarrollo) y **MySQL** (producción). Ver [README-DATABASE.md](backend/README-DATABASE.md) para más detalles sobre cómo cambiar entre bases de datos.
+
 ## 🛠️ Instalación
 
 ### 1. Clonar el repositorio
@@ -212,12 +214,18 @@ El esquema de Prisma incluye:
 
 ### Base de Datos
 
-Para producción, se recomienda usar:
-- **Vercel Postgres** (si usas Vercel)
-- **PlanetScale** (MySQL serverless)
-- **Railway Postgres** (si usas Railway)
+La aplicación soporta tanto **SQLite** (desarrollo) como **MySQL** (producción).
 
-Actualiza la `DATABASE_URL` en las variables de entorno.
+**Para cambiar a MySQL en producción:**
+1. Ver la guía completa en [backend/README-DATABASE.md](backend/README-DATABASE.md)
+2. O usar el script: `./backend/scripts/switch-to-mysql.sh`
+
+**Opciones de base de datos en producción:**
+- **MySQL** (recomendado) - PlanetScale, Railway, o servidor propio
+- **PostgreSQL** - Vercel Postgres, Railway, Supabase
+  - Nota: Requiere ajustar el schema para PostgreSQL
+
+Actualiza la `DATABASE_URL` en las variables de entorno según tu elección.
 
 ## 🔒 Seguridad
 
