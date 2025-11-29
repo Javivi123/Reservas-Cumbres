@@ -128,5 +128,27 @@ Este documento registra todos los cambios y mejoras realizadas en la aplicación
 
 ---
 
-**Última actualización**: Sesión 1 - Creación inicial completa del proyecto
+## Sesión 2 - Configuración de Base de Datos (Fecha: 2024)
+
+### Cambios Realizados
+
+#### Base de Datos
+- ✅ Cambiado de MySQL a SQLite para desarrollo local
+- ✅ Configurado `.env` con SQLite (file:./dev.db)
+- ✅ Actualizado `.env.example` con instrucciones para MySQL en producción
+- ✅ Actualizado README.md con información sobre SQLite/MySQL
+
+### Notas
+- SQLite se usa para desarrollo (no requiere instalación de servidor)
+- MySQL se usará en producción (cambio simple en schema.prisma y .env)
+- El JWT_SECRET ha sido generado automáticamente
+
+### Cómo cambiar a MySQL en producción:
+1. Cambiar en `prisma/schema.prisma`: `provider = "mysql"`
+2. Cambiar en `.env`: `DATABASE_URL="mysql://usuario:contraseña@localhost:3306/reservas_cumbres"`
+3. Ejecutar: `npx prisma migrate dev`
+
+---
+
+**Última actualización**: Sesión 2 - Configuración SQLite para desarrollo
 

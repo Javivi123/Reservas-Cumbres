@@ -15,7 +15,8 @@ Sistema web completo para la gestión de reservas de pistas deportivas de un col
 ## 📋 Requisitos Previos
 
 - Node.js 18+ y npm
-- MySQL 8+ (o compatible)
+- SQLite (incluido en macOS/Linux) - Para desarrollo
+- MySQL 8+ (o compatible) - Para producción (opcional)
 - Git
 
 ## 🛠️ Instalación
@@ -43,17 +44,15 @@ npm install
 
 ### 3. Configurar variables de entorno
 
-Crea un archivo `.env` en la carpeta `backend` basándote en `.env.example`:
+El archivo `.env` ya está creado con configuración de SQLite para desarrollo. Si quieres usar MySQL, edita `backend/.env`:
 
-```bash
-cd backend
-cp .env.example .env
+**Para desarrollo (SQLite - ya configurado):**
+```env
+DATABASE_URL="file:./dev.db"
 ```
 
-Edita el archivo `.env` con tus credenciales:
-
+**Para producción (MySQL):**
 ```env
-# Database
 DATABASE_URL="mysql://usuario:contraseña@localhost:3306/reservas_cumbres"
 
 # JWT
