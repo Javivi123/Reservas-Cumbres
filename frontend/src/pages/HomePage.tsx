@@ -22,7 +22,7 @@ export const HomePage = () => {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="text-2xl font-bold text-primary-600">
-                ⚽ Reservas
+                ⚽ Reservas Cumbres
               </div>
             </div>
             <nav className="flex items-center space-x-4">
