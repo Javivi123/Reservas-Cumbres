@@ -14,7 +14,7 @@ export const UserLayout = () => {
     { path: '/user/contact', label: 'Contacto', icon: MessageSquare },
   ];
 
-  const getNavItemColor = (index: number, isActive: boolean) => {
+  const getNavItemColor = (index: number) => {
     const colors = [
       { bg: 'bg-gradient-to-r from-blue-500 to-cyan-500', hover: 'hover:from-blue-600 hover:to-cyan-600', text: 'text-white' },
       { bg: 'bg-gradient-to-r from-green-500 to-emerald-500', hover: 'hover:from-green-600 hover:to-emerald-600', text: 'text-white' },
@@ -67,7 +67,7 @@ export const UserLayout = () => {
                 {navItems.map((item, index) => {
                   const Icon = item.icon;
                   const isActive = location.pathname === item.path;
-                  const colors = getNavItemColor(index, isActive);
+                  const colors = getNavItemColor(index);
                   return (
                     <li key={item.path}>
                       <Link
