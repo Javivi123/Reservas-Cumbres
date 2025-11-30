@@ -196,7 +196,7 @@ export const HomePage = () => {
 
                   {/* Logo del colegio */}
                   <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-                    <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-12">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-12">
                       {/* Texto y logo a la izquierda */}
                       <div className="flex flex-col items-center md:items-start space-y-4 flex-shrink-0">
                         <p className="text-gray-600 text-base font-medium"><span>🏫</span> Desarrollado para</p>
