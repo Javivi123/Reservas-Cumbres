@@ -427,15 +427,15 @@ VITE_API_URL=https://tu-backend.up.railway.app/api
 
 ### 7.1 Checklist de verificación
 
-- [ ] Backend desplegado y accesible
-- [ ] Frontend desplegado y accesible
-- [ ] Variables de entorno configuradas correctamente
-- [ ] CORS configurado correctamente
-- [ ] Base de datos conectada
-- [ ] Migraciones ejecutadas
-- [ ] Usuario admin creado (si es necesario)
-- [ ] Registro de usuarios funciona
-- [ ] Login funciona
+- [-] Backend desplegado y accesible
+- [-] Frontend desplegado y accesible
+- [-] Variables de entorno configuradas correctamente
+- [-] CORS configurado correctamente
+- [-] Base de datos conectada
+- [-] Migraciones ejecutadas
+- [-] Usuario admin creado (si es necesario)
+- [-] Registro de usuarios funciona
+- [-] Login funciona
 - [ ] Creación de reservas funciona
 - [ ] Subida de comprobantes funciona
 - [ ] Panel admin funciona
