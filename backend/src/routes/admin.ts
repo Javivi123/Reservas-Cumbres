@@ -309,7 +309,7 @@ router.get('/export/reservations', async (req: AuthRequest, res) => {
       'Fecha Creación',
     ];
 
-    const rows = reservations.map((r) => [
+    const rows = reservations.map((r: any) => [
       r.id,
       r.fecha.toISOString().split('T')[0],
       r.franja,
