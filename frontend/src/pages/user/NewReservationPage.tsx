@@ -13,6 +13,7 @@ import { es } from 'date-fns/locale';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Calendar, Clock, Euro, Lightbulb } from 'lucide-react';
+import { getSpaceImage } from '../../utils/images';
 
 const FRANJAS_SEMANA = ['17:30-19:00', '19:00-20:30', '20:30-22:00'];
 
@@ -173,12 +174,13 @@ export const NewReservationPage = () => {
                 if (space.tipo.includes('padel')) return '🎾';
                 return '🏟️';
               };
+              const spaceImage = getSpaceImage(space.nombre, space.tipo);
               return (
                 <label
                   key={space.id}
-                  className={`border-2 rounded-lg p-4 cursor-pointer transition-all hover:shadow-lg ${
+                  className={`border-2 rounded-lg overflow-hidden cursor-pointer transition-all hover:shadow-xl ${
                     spaceId === space.id
-                      ? 'border-blue-500 bg-blue-50 scale-105 shadow-md'
+                      ? 'border-blue-500 bg-blue-50 scale-105 shadow-lg ring-2 ring-blue-300'
                       : 'border-gray-200 hover:border-blue-300 bg-white hover:bg-gray-50'
                   }`}
                 >
@@ -188,19 +190,38 @@ export const NewReservationPage = () => {
                     {...register('spaceId')}
                     className="sr-only"
                   />
-                  <div>
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-3xl animate-bounce-slow">{getEmoji()}</span>
-                      <h3 className="font-semibold text-lg">{space.nombre}</h3>
+                  <div className="relative">
+                    {/* Imagen de la pista */}
+                    <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
+                      <img 
+                        src={spaceImage} 
+                        alt={space.nombre}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                        onError={(e) => {
+                          // Fallback si la imagen no se carga
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          target.parentElement!.className = 'relative h-48 w-full overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center';
+                          target.parentElement!.innerHTML = `<span class="text-6xl">${getEmoji()}</span>`;
+                        }}
+                      />
+                      {/* Overlay con emoji */}
+                      <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg">
+                        <span className="text-2xl">{getEmoji()}</span>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">
-                      <span>💰</span> General: €{space.precioBase} | <span>⭐</span> Especial: €{space.precioEspecial}
-                    </p>
-                    {space.luzIncluida && (
-                      <Badge variant="info" className="mt-2">
-                        <span>💡</span> <span>Luz incluida</span>
-                      </Badge>
-                    )}
+                    {/* Información de la pista */}
+                    <div className="p-4">
+                      <h3 className="font-semibold text-lg mb-2 text-gray-800">{space.nombre}</h3>
+                      <p className="text-sm text-gray-600 mb-2">
+                        <span>💰</span> General: €{space.precioBase} | <span>⭐</span> Especial: €{space.precioEspecial}
+                      </p>
+                      {space.luzIncluida && (
+                        <Badge variant="info" className="mt-2">
+                          <span>💡</span> <span>Luz incluida</span>
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 </label>
               );

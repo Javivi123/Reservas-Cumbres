@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Users, MapPin, Activity, Circle } from 'lucide-react';
 import { Button } from '../components/Button';
+import { logoPath, campusImage1, campusImage2 } from '../utils/images';
 
 export const HomePage = () => {
   const { user } = useAuth();
@@ -22,7 +23,16 @@ export const HomePage = () => {
       <header className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 shadow-lg sticky top-0 z-50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-3">
+              <img 
+                src={logoPath} 
+                alt="Cumbres School Valencia" 
+                className="h-10 w-auto object-contain"
+                onError={(e) => {
+                  // Fallback si la imagen no se carga
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
               <div className="text-2xl font-bold text-white flex items-center space-x-2">
                 <span>⚽</span>
                 <span>Reservas Cumbres</span>
@@ -56,9 +66,21 @@ export const HomePage = () => {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-        <div className="text-center">
+      {/* Hero Section con imagen de fondo del campus */}
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
+        {/* Imagen de fondo del campus */}
+        <div className="absolute inset-0 rounded-2xl overflow-hidden opacity-20 z-0">
+          <img 
+            src={campusImage1} 
+            alt="Campus Cumbres School Valencia" 
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
+          />
+        </div>
+        
+        <div className="text-center relative z-10">
           <div className="mb-6 animate-fade-in">
             <h1 className="text-6xl font-bold mb-4 flex items-center justify-center flex-wrap gap-2">
               <span>⚽</span><span>🏀</span><span>🎾</span>
@@ -143,20 +165,41 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* Logo del colegio */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
-        <div className="text-center">
-          <p className="text-gray-600 mb-4"><span>🏫</span> Desarrollado para</p>
-          <a 
-            href="https://cumbresschool.es" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-block text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors"
-          >
-            Cumbres School Valencia
-          </a>
-        </div>
-      </section>
+                  {/* Logo del colegio */}
+                  <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+                    <div className="text-center">
+                      <p className="text-gray-600 mb-6 text-lg"><span>🏫</span> Desarrollado para</p>
+                      <div className="flex flex-col items-center space-y-4">
+                        <img 
+                          src={logoPath} 
+                          alt="Cumbres School Valencia" 
+                          className="h-20 w-auto object-contain"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                        <a
+                          href="https://cumbresschool.es"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors"
+                        >
+                          Cumbres School Valencia
+                        </a>
+                      </div>
+                      {/* Imagen del campus */}
+                      <div className="mt-8 rounded-xl overflow-hidden shadow-2xl max-w-4xl mx-auto">
+                        <img 
+                          src={campusImage2} 
+                          alt="Vista aérea del campus Cumbres School Valencia" 
+                          className="w-full h-auto object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </section>
 
       {/* Footer */}
       <footer className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white mt-20 relative z-10">

@@ -4,6 +4,49 @@ Este documento registra todos los cambios y mejoras realizadas en la aplicación
 
 ---
 
+## Sesión Actual - Integración de Imágenes del Colegio (Fecha: 2025)
+
+### Cambios Realizados
+
+#### Integración de Imágenes
+- ✅ Creada estructura de carpetas para assets (`frontend/public/images/`)
+- ✅ Creado archivo de utilidades `utils/images.ts` para mapear imágenes a pistas
+- ✅ Integrado logo de Cumbres School Valencia en:
+  - Header de HomePage
+  - Header de UserLayout
+  - Header de AdminLayout
+  - Sección del footer en HomePage
+- ✅ Añadidas imágenes de pistas en las tarjetas de selección:
+  - Campo de césped (imagen 2)
+  - Campo multideporte (imágenes 3 y 4)
+  - Pistas de pádel (imágenes 5, 6 y 7)
+- ✅ Mejorada página de inicio con:
+  - Imagen de fondo del campus en la sección hero
+  - Vista aérea del campus en la sección del footer
+  - Logo prominente del colegio
+
+#### Mejoras de UI/UX
+- ✅ Tarjetas de pistas ahora muestran imágenes reales con overlay de emoji
+- ✅ Efecto hover mejorado en las tarjetas con imágenes
+- ✅ Fallback automático si las imágenes no se cargan (muestra emoji)
+- ✅ Imágenes responsivas y optimizadas para diferentes tamaños de pantalla
+
+#### Archivos Creados/Modificados
+- ✅ `frontend/src/utils/images.ts` - Utilidades para mapear imágenes
+- ✅ `frontend/public/images/README-IMAGENES.md` - Guía de colocación de imágenes
+- ✅ `frontend/src/pages/HomePage.tsx` - Integración de logo e imágenes del campus
+- ✅ `frontend/src/pages/user/NewReservationPage.tsx` - Imágenes en tarjetas de pistas
+- ✅ `frontend/src/layouts/UserLayout.tsx` - Logo en header
+- ✅ `frontend/src/layouts/AdminLayout.tsx` - Logo en header
+
+#### Notas Técnicas
+- Las imágenes se sirven desde `public/images/` (ruta pública de Vite)
+- Sistema de fallback implementado para manejar imágenes faltantes
+- Mapeo inteligente de imágenes basado en nombre y tipo de pista
+- Estructura preparada para fácil actualización de imágenes
+
+---
+
 ## Sesión 1 - Creación Inicial del Proyecto (Fecha: 2024)
 
 ### Cambios Realizados
