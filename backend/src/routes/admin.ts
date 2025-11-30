@@ -109,7 +109,7 @@ router.get('/reports/revenue', async (req: AuthRequest, res) => {
       },
     });
 
-    const total = reservations.reduce((sum, r) => sum + r.precioTotal, 0);
+    const total = reservations.reduce((sum: number, r: any) => sum + r.precioTotal, 0);
 
     // Agrupar por pista
     const bySpace = reservations.reduce((acc: any, r) => {
@@ -324,7 +324,7 @@ router.get('/export/reservations', async (req: AuthRequest, res) => {
       r.createdAt.toISOString(),
     ]);
 
-    const csv = [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    const csv = [headers.join(','), ...rows.map((r: string[]) => r.join(','))].join('\n');
 
     res.setHeader('Content-Type', 'text/csv');
     res.setHeader('Content-Disposition', 'attachment; filename=reservas.csv');
