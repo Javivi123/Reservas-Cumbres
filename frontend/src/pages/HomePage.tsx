@@ -201,7 +201,7 @@ export const HomePage = () => {
                       <div className="flex flex-col items-center md:items-start space-y-3">
                         <p className="text-gray-600 text-base"><span>🏫</span> Desarrollado para</p>
                         <img 
-                          src="/images/logo/cumbres-logo-nobg.jpg" 
+                          src="/images/logo/cumbres-logo-nobg.png" 
                           alt="Cumbres School Valencia" 
                           className="h-16 w-auto object-contain"
                           onError={(e) => {
