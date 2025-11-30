@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Users, MapPin, Activity, Circle } from 'lucide-react';
+import { Activity, Circle } from 'lucide-react';
 import { Button } from '../components/Button';
 import { logoPath, campusImage1, campusImage2 } from '../utils/images';
 
