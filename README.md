@@ -5,12 +5,13 @@ Sistema web completo para la gestión de reservas de pistas deportivas de un col
 ## 🚀 Características
 
 - **Gestión de Reservas**: Sistema completo de reservas con franjas horarias fijas entre semana y horario libre los fines de semana
-- **Múltiples Pistas**: Césped, Multi y Pádel (2 pistas)
+- **Múltiples Pistas**: Césped, Multi y Pádel (2 pistas) con imágenes reales de las instalaciones
 - **Sistema de Pagos**: Transferencia bancaria con subida de comprobante y aprobación por administrador
 - **Roles de Usuario**: Admin y Usuario (con opción de precio especial para alumnos/familias/ex-alumnos)
 - **Panel de Administración**: Gestión completa de reservas, usuarios, pistas, reportes y logs
 - **Notificaciones por Email**: Sistema simulado de emails para notificaciones importantes
 - **Páginas Legales**: Política de privacidad, normas de uso e información de emergencia
+- **Diseño Visual**: Logo del colegio, imágenes de pistas y vistas del campus integradas en toda la aplicación
 
 ## 📋 Requisitos Previos
 
@@ -44,7 +45,29 @@ cd ../frontend
 npm install
 ```
 
-### 3. Configurar variables de entorno
+### 3. Colocar imágenes del colegio (Opcional pero recomendado)
+
+Para que las imágenes del colegio se muestren correctamente, coloca las imágenes en las siguientes ubicaciones:
+
+```
+frontend/public/images/
+├── logo/
+│   └── cumbres-logo.png          # Logo de Cumbres School Valencia
+├── pistas/
+│   ├── cesped.jpg                # Campo de césped
+│   ├── multi.jpg                 # Campo multideporte
+│   ├── padel-1.jpg               # Pista de pádel 1
+│   └── padel-2.jpg               # Pista de pádel 2
+└── instalaciones/
+    ├── campus-1.jpg              # Vista general del campus
+    └── campus-2.jpg              # Vista aérea del campus
+```
+
+**Ver** `frontend/public/images/README-IMAGENES.md` para instrucciones detalladas.
+
+> **Nota**: Si no colocas las imágenes, la aplicación funcionará igual pero mostrará emojis como fallback.
+
+### 4. Configurar variables de entorno
 
 El archivo `.env` ya está creado con configuración de SQLite para desarrollo. Si quieres usar MySQL, edita `backend/.env`:
 
