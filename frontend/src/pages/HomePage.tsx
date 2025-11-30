@@ -67,7 +67,7 @@ export const HomePage = () => {
       </header>
 
       {/* Hero Section con imagen de fondo del campus */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10 mt-8">
         {/* Imagen de fondo del campus con overlay */}
         <div className="absolute inset-0 rounded-2xl overflow-hidden z-0">
           <img 
@@ -119,7 +119,7 @@ export const HomePage = () => {
           <div className="card text-center animate-slide-up hover:shadow-xl transition-all transform hover:scale-105 group bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200">
             <div className="mb-4 relative">
               {/* Espacio para imagen - Reservas Fáciles */}
-              <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
+              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
                 <img 
                   src="/images/features/reservas-faciles.jpg" 
                   alt="Reservas Fáciles"
@@ -145,7 +145,7 @@ export const HomePage = () => {
           <div className="card text-center animate-slide-up hover:shadow-xl transition-all transform hover:scale-105 group bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200" style={{ animationDelay: '0.1s' }}>
             <div className="mb-4 relative">
               {/* Espacio para imagen - Múltiples Pistas */}
-              <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-orange-100 to-red-100 border-2 border-orange-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
+              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-orange-100 to-red-100 border-2 border-orange-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
                 <img 
                   src="/images/features/multiples-pistas.jpg" 
                   alt="Múltiples Pistas"
@@ -170,7 +170,7 @@ export const HomePage = () => {
           <div className="card text-center animate-slide-up hover:shadow-xl transition-all transform hover:scale-105 group bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200" style={{ animationDelay: '0.2s' }}>
             <div className="mb-4 relative">
               {/* Espacio para imagen - Precios Especiales (alumnos sonriendo) */}
-              <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 border-2 border-purple-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
+              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 border-2 border-purple-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
                 <img 
                   src="/images/features/precios-especiales.jpg" 
                   alt="Precios Especiales"
@@ -196,9 +196,10 @@ export const HomePage = () => {
 
                   {/* Logo del colegio */}
                   <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-                    <div className="text-center">
-                      <p className="text-gray-600 mb-4 text-base"><span>🏫</span> Desarrollado para</p>
-                      <div className="flex flex-col items-center space-y-3">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+                      {/* Texto y logo a la izquierda */}
+                      <div className="flex flex-col items-center md:items-start space-y-3">
+                        <p className="text-gray-600 text-base"><span>🏫</span> Desarrollado para</p>
                         <img 
                           src="/images/logo/cumbres-logo-nobg.jpg" 
                           alt="Cumbres School Valencia" 
@@ -218,8 +219,8 @@ export const HomePage = () => {
                           Cumbres School Valencia
                         </a>
                       </div>
-                      {/* Imagen del campus */}
-                      <div className="mt-6 rounded-xl overflow-hidden shadow-2xl max-w-3xl mx-auto">
+                      {/* Imagen del campus a la derecha */}
+                      <div className="flex-1 max-w-2xl rounded-xl overflow-hidden shadow-2xl">
                         <img 
                           src={campusImage2} 
                           alt="Vista aérea del campus Cumbres School Valencia" 

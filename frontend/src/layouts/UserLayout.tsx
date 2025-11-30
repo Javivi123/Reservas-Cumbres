@@ -18,7 +18,7 @@ export const UserLayout = () => {
     const colors = [
       { bg: 'bg-gradient-to-r from-blue-500 to-cyan-500', hover: 'hover:from-blue-600 hover:to-cyan-600', text: 'text-white' },
       { bg: 'bg-gradient-to-r from-green-500 to-emerald-500', hover: 'hover:from-green-600 hover:to-emerald-600', text: 'text-white' },
-      { bg: 'bg-gradient-to-r from-indigo-500 to-blue-500', hover: 'hover:from-indigo-600 hover:to-blue-600', text: 'text-white' }, // Cambiado de morado a índigo-azul
+      { bg: 'bg-gradient-to-r from-teal-500 to-cyan-500', hover: 'hover:from-teal-600 hover:to-cyan-600', text: 'text-white' }, // Cambiado de morado a teal-cyan para Perfil
       { bg: 'bg-gradient-to-r from-orange-500 to-red-500', hover: 'hover:from-orange-600 hover:to-red-600', text: 'text-white' },
     ];
     return colors[index % colors.length];
