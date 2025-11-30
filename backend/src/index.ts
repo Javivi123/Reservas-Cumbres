@@ -12,7 +12,13 @@ import { legalRoutes } from './routes/legal';
 dotenv.config();
 
 const app = express();
-const PORT = parseInt(process.env.PORT || '3001', 10);
+const PORT_ENV = process.env.PORT || '3001';
+const PORT = parseInt(PORT_ENV, 10);
+if (isNaN(PORT) || PORT <= 0 || PORT > 65535) {
+  console.error(`❌ Error: Puerto inválido "${PORT_ENV}". Debe ser un número entre 1 y 65535.`);
+  console.error(`💡 Usando puerto por defecto: 3001`);
+  process.exit(1);
+}
 
 // Middleware
 app.use(cors());
@@ -86,4 +92,3 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
-
