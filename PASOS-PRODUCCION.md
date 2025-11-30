@@ -97,22 +97,83 @@ MAX_FILE_SIZE=5242880
 - No uses el mismo `JWT_SECRET` de desarrollo
 - La `DATABASE_URL` será proporcionada por tu servicio de base de datos
 
-### 2.3 Opciones de Base de Datos
+### 2.3 Opciones de Base de Datos (Gratuitas)
 
-#### Opción A: PlanetScale (Recomendado - MySQL gratuito)
-1. Ve a [planetscale.com](https://planetscale.com)
+#### Opción A: Railway (⭐ RECOMENDADO - MySQL gratuito)
+1. Ve a [railway.app](https://railway.app)
+2. Crea una cuenta gratuita (con GitHub)
+3. En tu proyecto, click en "New" → "Database" → "MySQL"
+4. Railway creará una base de datos MySQL automáticamente
+5. Copia la `DATABASE_URL` de las variables de entorno del servicio
+6. **Ventajas**: 
+   - 500 horas gratis al mes (suficiente para desarrollo/pruebas)
+   - MySQL nativo
+   - Muy fácil de configurar
+   - Incluido si ya usas Railway para el backend
+
+#### Opción B: Aiven (MySQL gratuito con límites)
+1. Ve a [aiven.io](https://aiven.io)
 2. Crea una cuenta gratuita
-3. Crea una nueva base de datos
-4. Copia la `DATABASE_URL` de conexión
-5. Usa esa URL en las variables de entorno
+3. Crea un nuevo servicio MySQL
+4. Plan gratuito: 1 instancia, 1GB RAM, 10GB almacenamiento
+5. Copia la `DATABASE_URL` de conexión
+6. **Ventajas**: 
+   - MySQL real y gratuito
+   - Buena para desarrollo y pruebas pequeñas
+   - **Desventajas**: Límites de recursos
 
-#### Opción B: Railway (MySQL incluido)
-1. Railway te proporcionará una base de datos MySQL automáticamente
-2. Usa la `DATABASE_URL` que te den
+#### Opción C: Supabase (PostgreSQL - Gratis)
+1. Ve a [supabase.com](https://supabase.com)
+2. Crea una cuenta gratuita
+3. Crea un nuevo proyecto
+4. Copia la `DATABASE_URL` (PostgreSQL)
+5. **⚠️ IMPORTANTE**: Necesitarás ajustar el schema para PostgreSQL
+   - Cambia `provider = "postgresql"` en `schema.prisma`
+   - Algunos tipos pueden necesitar ajustes
+6. **Ventajas**: 
+   - 500MB gratis, muy generoso
+   - PostgreSQL es muy robusto
+   - **Desventajas**: Requiere cambios en el schema
 
-#### Opción C: Render (PostgreSQL)
-1. Render usa PostgreSQL por defecto
-2. Necesitarás ajustar el schema para PostgreSQL (ver `backend/README-DATABASE.md`)
+#### Opción D: Render (PostgreSQL - Gratis)
+1. Ve a [render.com](https://render.com)
+2. Crea una cuenta gratuita
+3. Click en "New" → "PostgreSQL"
+4. Render creará una base de datos PostgreSQL
+5. Copia la `DATABASE_URL` interna
+6. **⚠️ IMPORTANTE**: Necesitarás ajustar el schema para PostgreSQL
+7. **Ventajas**: 
+   - PostgreSQL gratis
+   - **Desventajas**: Requiere cambios en el schema, se duerme después de inactividad
+
+#### Opción E: Clever Cloud (MySQL - Gratis con límites)
+1. Ve a [clever-cloud.com](https://clever-cloud.com)
+2. Crea una cuenta gratuita
+3. Crea un addon MySQL
+4. Plan gratuito disponible con límites
+5. **Ventajas**: MySQL nativo
+6. **Desventajas**: Límites de recursos y tiempo
+
+#### Opción F: TiDB Cloud (MySQL compatible - Gratis)
+1. Ve a [tidbcloud.com](https://tidbcloud.com)
+2. Crea una cuenta gratuita
+3. Crea un cluster gratuito
+4. Compatible con MySQL
+5. **Ventajas**: MySQL compatible, generoso en recursos gratis
+6. **Desventajas**: Puede ser más complejo de configurar
+
+### 🎯 Recomendación
+
+**Para empezar rápido**: Usa **Railway** (Opción A)
+- Es la más fácil de configurar
+- MySQL nativo (no necesitas cambiar el schema)
+- Incluido si ya usas Railway para el backend
+- 500 horas gratis al mes es suficiente para desarrollo/pruebas
+
+**Si necesitas más recursos gratis**: Usa **Supabase** (Opción C)
+- PostgreSQL es muy robusto
+- 500MB gratis es generoso
+- Requiere ajustar el schema pero es una vez
 
 ---
 
@@ -150,10 +211,12 @@ MAX_FILE_SIZE=5242880
      MAX_FILE_SIZE=5242880
      ```
 
-5. **Configurar base de datos MySQL**
+5. **Configurar base de datos MySQL (GRATIS)**
    - Click en "New" → "Database" → "MySQL"
-   - Railway creará una base de datos automáticamente
-   - Copia la `DATABASE_URL` y úsala en las variables de entorno
+   - Railway creará una base de datos MySQL automáticamente (gratis)
+   - Copia la `DATABASE_URL` de las variables de entorno del servicio de base de datos
+   - Pégala en las variables de entorno de tu servicio backend
+   - **Nota**: Railway ofrece 500 horas gratis al mes, suficiente para desarrollo
 
 6. **Configurar build y start**
    - Build Command: `npm install && npm run build && npx prisma generate && npx prisma migrate deploy`
@@ -186,11 +249,14 @@ MAX_FILE_SIZE=5242880
 3. **Configurar variables de entorno**
    - En "Environment Variables", añade todas las del `.env.production`
 
-4. **Crear base de datos PostgreSQL**
+4. **Crear base de datos PostgreSQL (GRATIS)**
    - Click en "New" → "PostgreSQL"
-   - Render creará una base de datos
+   - Render creará una base de datos PostgreSQL (gratis)
    - Copia la `DATABASE_URL` interna
-   - **Nota**: Necesitarás ajustar el schema para PostgreSQL
+   - **⚠️ IMPORTANTE**: Necesitarás ajustar el schema para PostgreSQL:
+     - Cambia `provider = "postgresql"` en `prisma/schema.prisma`
+     - Algunos tipos pueden necesitar ajustes (ver `backend/README-DATABASE.md`)
+   - **Nota**: La base de datos se "duerme" después de inactividad (se despierta automáticamente)
 
 5. **Desplegar**
    - Render desplegará automáticamente
