@@ -219,11 +219,12 @@ MAX_FILE_SIZE=5242880
    - **Nota**: Railway ofrece 500 horas gratis al mes, suficiente para desarrollo
 
 6. **Configurar build y start**
-   - Build Command: `npm install && npm run build && npx prisma generate && npx prisma migrate deploy`
+   - Build Command: `npm install --include=dev && npm run build && npx prisma generate && npx prisma db push --accept-data-loss`
    - Start Command: `npm start`
    - O en "Settings" → "Deploy":
-     - Build Command: `npm install && npm run build && npx prisma generate && npx prisma migrate deploy`
+     - Build Command: `npm install --include=dev && npm run build && npx prisma generate && npx prisma db push --accept-data-loss`
      - Start Command: `npm start`
+   - **Nota**: Usamos `prisma db push` en lugar de `migrate deploy` porque estamos cambiando de SQLite (desarrollo) a MySQL (producción). Esto sincroniza el schema directamente sin conflictos de migraciones.
 
 7. **Desplegar**
    - Railway desplegará automáticamente
@@ -243,8 +244,9 @@ MAX_FILE_SIZE=5242880
      - **Name**: `reservas-cumbres-backend`
      - **Root Directory**: `backend`
      - **Environment**: `Node`
-     - **Build Command**: `npm install && npm run build && npx prisma generate && npx prisma migrate deploy`
+     - **Build Command**: `npm install --include=dev && npm run build && npx prisma generate && npx prisma db push --accept-data-loss`
      - **Start Command**: `npm start`
+     - **Nota**: Usamos `prisma db push` porque estamos cambiando de SQLite a MySQL. Esto sincroniza el schema directamente.
 
 3. **Configurar variables de entorno**
    - En "Environment Variables", añade todas las del `.env.production`

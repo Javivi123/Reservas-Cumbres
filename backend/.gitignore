@@ -1,7 +1,10 @@
 node_modules/
 dist/
 .env
+.env.local
 uploads/
 *.log
 .DS_Store
-
+dev.db
+dev.db-journal
+prisma/migrations/
