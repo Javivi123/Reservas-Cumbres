@@ -27,7 +27,7 @@ export const HomePage = () => {
               <img 
                 src={logoPath} 
                 alt="Cumbres School Valencia" 
-                className="h-10 w-auto object-contain"
+                className="h-10 w-10 object-cover rounded-full border-2 border-white/30"
                 onError={(e) => {
                   // Fallback si la imagen no se carga
                   (e.target as HTMLImageElement).style.display = 'none';
@@ -67,9 +67,9 @@ export const HomePage = () => {
       </header>
 
       {/* Hero Section con imagen de fondo del campus */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 z-10">
-        {/* Imagen de fondo del campus */}
-        <div className="absolute inset-0 rounded-2xl overflow-hidden opacity-20 z-0">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10">
+        {/* Imagen de fondo del campus con overlay */}
+        <div className="absolute inset-0 rounded-2xl overflow-hidden z-0">
           <img 
             src={campusImage1} 
             alt="Campus Cumbres School Valencia" 
@@ -78,32 +78,33 @@ export const HomePage = () => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/60 via-purple-900/50 to-pink-900/60"></div>
         </div>
         
-        <div className="text-center relative z-10">
-          <div className="mb-6 animate-fade-in">
-            <h1 className="text-6xl font-bold mb-4 flex items-center justify-center flex-wrap gap-2">
+        <div className="text-center relative z-10 py-8">
+          <div className="mb-4 animate-fade-in">
+            <h1 className="text-4xl md:text-5xl font-bold mb-3 flex items-center justify-center flex-wrap gap-2">
               <span>⚽</span><span>🏀</span><span>🎾</span>
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Sistema de Reservas</span>
+              <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent drop-shadow-lg">Sistema de Reservas</span>
             </h1>
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg mb-3">
               Pistas Deportivas
             </h2>
           </div>
-          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto drop-shadow-md">
             <span>🏃‍♂️</span> Reserva fácilmente las pistas deportivas del colegio. 
             <br />
-            <span className="font-semibold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">Gestión simple y rápida</span> <span>✨</span>
+            <span className="font-semibold text-white">Gestión simple y rápida</span> <span>✨</span>
           </p>
           {!user && (
             <div className="flex justify-center space-x-4 animate-slide-up">
               <Link to="/register">
-                <Button className="text-lg px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
+                <Button className="text-base px-6 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
                   <span>🚀</span> <span>Comenzar Ahora</span>
                 </Button>
               </Link>
               <Link to="/login">
-                <Button variant="secondary" className="text-lg px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0 shadow-md hover:shadow-lg">
+                <Button variant="secondary" className="text-base px-6 py-2.5 bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur-sm">
                   <span>👤</span> <span>Ya tengo cuenta</span>
                 </Button>
               </Link>
@@ -113,52 +114,80 @@ export const HomePage = () => {
       </section>
 
       {/* Features con imágenes */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid md:grid-cols-3 gap-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+        <div className="grid md:grid-cols-3 gap-6">
           <div className="card text-center animate-slide-up hover:shadow-xl transition-all transform hover:scale-105 group bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200">
             <div className="mb-4 relative">
-              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
-                <Activity className="text-white" size={48} />
+              {/* Espacio para imagen - Reservas Fáciles */}
+              <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-emerald-100 border-2 border-green-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
+                <img 
+                  src="/images/features/reservas-faciles.jpg" 
+                  alt="Reservas Fáciles"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    // Fallback si no hay imagen
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
               </div>
               <div className="absolute -top-2 -right-2 text-3xl animate-bounce">⚽</div>
             </div>
-            <h3 className="text-xl font-semibold mb-2 flex items-center justify-center">
+            <h3 className="text-lg font-semibold mb-2 flex items-center justify-center">
               <span>📅</span>
               <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent ml-2">Reservas Fáciles</span>
             </h3>
-            <p className="text-gray-700">
+            <p className="text-sm text-gray-700">
               Reserva tus pistas favoritas en pocos clics. Selecciona fecha, hora y pista. <span>🎯</span>
             </p>
           </div>
           
           <div className="card text-center animate-slide-up hover:shadow-xl transition-all transform hover:scale-105 group bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-200" style={{ animationDelay: '0.1s' }}>
             <div className="mb-4 relative">
-              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
-                <MapPin className="text-white" size={48} />
+              {/* Espacio para imagen - Múltiples Pistas */}
+              <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-orange-100 to-red-100 border-2 border-orange-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
+                <img 
+                  src="/images/features/multiples-pistas.jpg" 
+                  alt="Múltiples Pistas"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
               </div>
               <div className="absolute -top-2 -right-2 text-3xl animate-bounce" style={{ animationDelay: '0.2s' }}>🏀</div>
             </div>
-            <h3 className="text-xl font-semibold mb-2 flex items-center justify-center">
+            <h3 className="text-lg font-semibold mb-2 flex items-center justify-center">
               <span>🏟️</span>
               <span className="bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent ml-2">Múltiples Pistas</span>
             </h3>
-            <p className="text-gray-700">
+            <p className="text-sm text-gray-700">
               Césped <span>⚽</span>, multi <span>🏀</span> y pádel <span>🎾</span>. Elige la pista que mejor se adapte a tu actividad.
             </p>
           </div>
           
           <div className="card text-center animate-slide-up hover:shadow-xl transition-all transform hover:scale-105 group bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200" style={{ animationDelay: '0.2s' }}>
             <div className="mb-4 relative">
-              <div className="w-24 h-24 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
-                <Users className="text-white" size={48} />
+              {/* Espacio para imagen - Precios Especiales (alumnos sonriendo) */}
+              <div className="w-24 h-24 mx-auto rounded-full overflow-hidden bg-gradient-to-br from-purple-100 to-pink-100 border-2 border-purple-300 group-hover:scale-110 transition-transform shadow-lg flex items-center justify-center">
+                <img 
+                  src="/images/features/precios-especiales.jpg" 
+                  alt="Precios Especiales"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
               </div>
               <div className="absolute -top-2 -right-2 text-3xl animate-bounce" style={{ animationDelay: '0.4s' }}>🎾</div>
             </div>
-            <h3 className="text-xl font-semibold mb-2 flex items-center justify-center">
+            <h3 className="text-lg font-semibold mb-2 flex items-center justify-center">
               <span>💰</span>
               <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent ml-2">Precios Especiales</span>
             </h3>
-            <p className="text-gray-700">
+            <p className="text-sm text-gray-700">
               Alumnos <span>👨‍🎓</span>, familias <span>👨‍👩‍👧‍👦</span> y ex-alumnos <span>🎓</span> disfrutan de tarifas especiales.
             </p>
           </div>
@@ -166,29 +195,31 @@ export const HomePage = () => {
       </section>
 
                   {/* Logo del colegio */}
-                  <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+                  <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
                     <div className="text-center">
-                      <p className="text-gray-600 mb-6 text-lg"><span>🏫</span> Desarrollado para</p>
-                      <div className="flex flex-col items-center space-y-4">
+                      <p className="text-gray-600 mb-4 text-base"><span>🏫</span> Desarrollado para</p>
+                      <div className="flex flex-col items-center space-y-3">
                         <img 
-                          src={logoPath} 
+                          src="/images/logo/cumbres-logo-nobg.jpg" 
                           alt="Cumbres School Valencia" 
-                          className="h-20 w-auto object-contain"
+                          className="h-16 w-auto object-contain"
                           onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
+                            // Fallback al logo normal si no existe el sin fondo
+                            const target = e.target as HTMLImageElement;
+                            target.src = logoPath;
                           }}
                         />
                         <a
                           href="https://cumbresschool.es"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors"
+                          className="inline-block text-xl font-bold text-primary-600 hover:text-primary-700 transition-colors"
                         >
                           Cumbres School Valencia
                         </a>
                       </div>
                       {/* Imagen del campus */}
-                      <div className="mt-8 rounded-xl overflow-hidden shadow-2xl max-w-4xl mx-auto">
+                      <div className="mt-6 rounded-xl overflow-hidden shadow-2xl max-w-3xl mx-auto">
                         <img 
                           src={campusImage2} 
                           alt="Vista aérea del campus Cumbres School Valencia" 
@@ -202,13 +233,13 @@ export const HomePage = () => {
                   </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white mt-20 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <footer className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white mt-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-white/90 mb-4 md:mb-0">
+            <div className="text-white/90 mb-3 md:mb-0 text-sm">
               © 2025 Javier Sánchez (alumno de Cumbres). Todos los derechos reservados. <span>🎓</span>
             </div>
-            <div className="flex space-x-6">
+            <div className="flex space-x-4 text-sm">
               <Link to="/legal/privacidad" className="text-white/90 hover:text-white transition-colors font-medium">
                 <span>🔒</span> <span>Privacidad</span>
               </Link>

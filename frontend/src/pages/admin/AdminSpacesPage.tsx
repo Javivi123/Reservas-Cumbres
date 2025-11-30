@@ -6,6 +6,7 @@ import { Modal } from '../../components/Modal';
 import { Input } from '../../components/Input';
 import toast from 'react-hot-toast';
 import { MapPin, Edit, Check } from 'lucide-react';
+import { getSpaceImage } from '../../utils/images';
 
 export const AdminSpacesPage = () => {
   const [spaces, setSpaces] = useState<Space[]>([]);
@@ -77,17 +78,34 @@ export const AdminSpacesPage = () => {
       </h1>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {spaces.map((space) => (
-          <div key={space.id} className="card">
-            <div className="flex justify-between items-start mb-4">
-              <h3 className="text-xl font-semibold">{space.nombre}</h3>
-              <Button variant="secondary" size="sm" onClick={() => handleEdit(space)}>
-                <Edit size={16} className="mr-1" />
-                Editar
-              </Button>
-            </div>
+        {spaces.map((space) => {
+          const spaceImage = getSpaceImage(space.nombre, space.tipo || '');
+          return (
+            <div key={space.id} className="card overflow-hidden">
+              {/* Imagen de la pista */}
+              <div className="relative h-32 w-full mb-4 -mx-6 -mt-6 bg-gradient-to-br from-gray-100 to-gray-200">
+                <img 
+                  src={spaceImage} 
+                  alt={space.nombre}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
+                <div className="absolute top-2 right-2">
+                  <Button variant="secondary" size="sm" onClick={() => handleEdit(space)}>
+                    <Edit size={16} className="mr-1" />
+                    Editar
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-xl font-semibold">{space.nombre}</h3>
+              </div>
 
-            <div className="space-y-2 text-sm">
+              <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-600">Precio General:</span>
                 <span className="font-medium">€{space.precioBase.toFixed(2)}</span>
@@ -113,7 +131,8 @@ export const AdminSpacesPage = () => {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Modal de edición */}

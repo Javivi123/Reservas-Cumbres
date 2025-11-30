@@ -33,14 +33,13 @@ export const AdminLayout = () => {
               <img 
                 src={logoPath} 
                 alt="Cumbres School Valencia" 
-                className="h-10 w-auto object-contain"
+                className="h-10 w-10 object-cover rounded-full border-2 border-white/30"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
               <Shield className="text-white" size={24} />
               <Link to="/admin" className="text-2xl font-bold text-white flex items-center">
-                <span>🛡️</span>
                 <span className="ml-2">Panel Admin</span>
               </Link>
             </div>

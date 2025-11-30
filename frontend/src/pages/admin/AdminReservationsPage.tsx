@@ -9,6 +9,7 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import toast from 'react-hot-toast';
 import { Filter, Download, Check, X, FileText, Eye } from 'lucide-react';
+import { getSpaceImage } from '../../utils/images';
 
 /**
  * Helper para obtener la URL base del servidor (para archivos estáticos como comprobantes)
@@ -249,7 +250,19 @@ export const AdminReservationsPage = () => {
                     <div className="text-sm text-gray-500">{reservation.franja}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {reservation.space?.nombre}
+                    <div className="flex items-center space-x-2">
+                      {reservation.space && (
+                        <img 
+                          src={getSpaceImage(reservation.space.nombre, reservation.space.tipo || '')} 
+                          alt={reservation.space.nombre}
+                          className="w-8 h-8 rounded object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                      )}
+                      <span>{reservation.space?.nombre}</span>
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div>{reservation.user?.nombre}</div>

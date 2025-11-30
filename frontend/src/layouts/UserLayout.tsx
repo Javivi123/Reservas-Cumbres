@@ -18,7 +18,7 @@ export const UserLayout = () => {
     const colors = [
       { bg: 'bg-gradient-to-r from-blue-500 to-cyan-500', hover: 'hover:from-blue-600 hover:to-cyan-600', text: 'text-white' },
       { bg: 'bg-gradient-to-r from-green-500 to-emerald-500', hover: 'hover:from-green-600 hover:to-emerald-600', text: 'text-white' },
-      { bg: 'bg-gradient-to-r from-purple-500 to-pink-500', hover: 'hover:from-purple-600 hover:to-pink-600', text: 'text-white' },
+      { bg: 'bg-gradient-to-r from-indigo-500 to-blue-500', hover: 'hover:from-indigo-600 hover:to-blue-600', text: 'text-white' }, // Cambiado de morado a índigo-azul
       { bg: 'bg-gradient-to-r from-orange-500 to-red-500', hover: 'hover:from-orange-600 hover:to-red-600', text: 'text-white' },
     ];
     return colors[index % colors.length];
@@ -34,7 +34,7 @@ export const UserLayout = () => {
               <img 
                 src={logoPath} 
                 alt="Cumbres School Valencia" 
-                className="h-10 w-auto object-contain"
+                className="h-10 w-10 object-cover rounded-full border-2 border-white/30"
                 onError={(e) => {
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}

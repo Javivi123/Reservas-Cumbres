@@ -32,6 +32,7 @@ export const getSpaceImage = (spaceName: string, spaceType: string): string => {
 };
 
 export const logoPath = '/images/logo/cumbres-logo.png';
+export const logoPathNoBg = '/images/logo/cumbres-logo-nobg.jpg';
 export const campusImage1 = '/images/instalaciones/campus-1.jpg';
 export const campusImage2 = '/images/instalaciones/campus-2.jpg';
 
