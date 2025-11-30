@@ -196,14 +196,14 @@ export const HomePage = () => {
 
                   {/* Logo del colegio */}
                   <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-12">
                       {/* Texto y logo a la izquierda */}
-                      <div className="flex flex-col items-center md:items-start space-y-3">
-                        <p className="text-gray-600 text-base"><span>🏫</span> Desarrollado para</p>
+                      <div className="flex flex-col items-center md:items-start space-y-4 flex-shrink-0">
+                        <p className="text-gray-600 text-base font-medium"><span>🏫</span> Desarrollado para</p>
                         <img 
                           src="/images/logo/cumbres-logo-nobg.png" 
                           alt="Cumbres School Valencia" 
-                          className="h-16 w-auto object-contain"
+                          className="h-20 w-auto object-contain"
                           onError={(e) => {
                             // Fallback al logo normal si no existe el sin fondo
                             const target = e.target as HTMLImageElement;
@@ -214,13 +214,13 @@ export const HomePage = () => {
                           href="https://cumbresschool.es"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block text-xl font-bold text-primary-600 hover:text-primary-700 transition-colors"
+                          className="inline-block text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors text-center md:text-left"
                         >
                           Cumbres School Valencia
                         </a>
                       </div>
                       {/* Imagen del campus a la derecha */}
-                      <div className="flex-1 max-w-2xl rounded-xl overflow-hidden shadow-2xl">
+                      <div className="flex-1 max-w-3xl w-full rounded-xl overflow-hidden shadow-2xl">
                         <img 
                           src={campusImage2} 
                           alt="Vista aérea del campus Cumbres School Valencia" 

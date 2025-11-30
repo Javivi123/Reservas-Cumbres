@@ -81,9 +81,9 @@ export const AdminSpacesPage = () => {
         {spaces.map((space) => {
           const spaceImage = getSpaceImage(space.nombre, space.tipo || '');
           return (
-            <div key={space.id} className="card overflow-hidden">
+            <div key={space.id} className="card p-0 overflow-hidden">
               {/* Imagen de la pista */}
-              <div className="relative h-32 w-full mb-4 -mx-6 -mt-6 bg-gradient-to-br from-gray-100 to-gray-200">
+              <div className="relative h-40 w-full bg-gradient-to-br from-gray-100 to-gray-200">
                 <img 
                   src={spaceImage} 
                   alt={space.nombre}
@@ -93,44 +93,46 @@ export const AdminSpacesPage = () => {
                     target.style.display = 'none';
                   }}
                 />
-                <div className="absolute top-2 right-2">
-                  <Button variant="secondary" size="sm" onClick={() => handleEdit(space)}>
+                <div className="absolute top-3 right-3">
+                  <Button variant="secondary" size="sm" onClick={() => handleEdit(space)} className="bg-white/90 hover:bg-white shadow-lg">
                     <Edit size={16} className="mr-1" />
                     Editar
                   </Button>
                 </div>
               </div>
               
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-semibold">{space.nombre}</h3>
-              </div>
-
-              <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Precio General:</span>
-                <span className="font-medium">€{space.precioBase.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Precio Especial:</span>
-                <span className="font-medium">€{space.precioEspecial.toFixed(2)}</span>
-              </div>
-              {!space.luzIncluida && (
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Precio Luz:</span>
-                  <span className="font-medium">€{space.luzPrecio.toFixed(2)}</span>
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-xl font-semibold">{space.nombre}</h3>
                 </div>
-              )}
-              {space.luzIncluida && (
-                <div className="text-primary-600 font-medium">Luz incluida</div>
-              )}
-              <div className="flex justify-between mt-2">
-                <span className="text-gray-600">Estado:</span>
-                <span className={space.disponible ? 'text-green-600' : 'text-red-600'}>
-                  {space.disponible ? 'Disponible' : 'No Disponible'}
-                </span>
+
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Precio General:</span>
+                    <span className="font-medium">€{space.precioBase.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Precio Especial:</span>
+                    <span className="font-medium">€{space.precioEspecial.toFixed(2)}</span>
+                  </div>
+                  {!space.luzIncluida && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Precio Luz:</span>
+                      <span className="font-medium">€{space.luzPrecio.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {space.luzIncluida && (
+                    <div className="text-primary-600 font-medium">Luz incluida</div>
+                  )}
+                  <div className="flex justify-between mt-2">
+                    <span className="text-gray-600">Estado:</span>
+                    <span className={space.disponible ? 'text-green-600' : 'text-red-600'}>
+                      {space.disponible ? 'Disponible' : 'No Disponible'}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
           );
         })}
       </div>
