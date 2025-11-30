@@ -9,25 +9,31 @@ Las imágenes deben colocarse en las siguientes ubicaciones dentro de `frontend/
 ```
 frontend/public/images/
 ├── logo/
-│   └── cumbres-logo.png          # Logo de Cumbres School Valencia (imagen 1)
+│   ├── cumbres-logo.png          # Logo de Cumbres School Valencia con fondo (imagen 1) - Para headers
+│   └── cumbres-logo-nobg.jpg     # Logo de Cumbres School Valencia sin fondo - Para footer
 ├── pistas/
 │   ├── cesped.jpg                # Campo de césped (imagen 2)
 │   ├── multi.jpg                 # Campo multideporte (imagen 3 o 4)
 │   ├── padel-1.jpg               # Pista de pádel 1 (imagen 5, 6 o 7)
 │   └── padel-2.jpg               # Pista de pádel 2 (imagen 5, 6 o 7 - diferente)
-└── instalaciones/
-    ├── campus-1.jpg              # Vista general del campus (imagen 8)
-    └── campus-2.jpg              # Vista aérea del campus (imagen 9)
+├── instalaciones/
+│   ├── campus-1.jpg              # Vista general del campus (imagen 8) - Para hero section
+│   └── campus-2.jpg              # Vista aérea del campus (imagen 9) - Para footer
+└── features/
+    ├── reservas-faciles.jpg      # Imagen para tarjeta "Reservas Fáciles"
+    ├── multiples-pistas.jpg       # Imagen para tarjeta "Múltiples Pistas"
+    └── precios-especiales.jpg     # Imagen de alumnos sonriendo para "Precios Especiales"
 ```
 
 ## 🖼️ Mapeo de Imágenes
 
 ### Logo (Imagen 1)
-- **Ubicación**: `logo/cumbres-logo.png`
-- **Uso**: Se muestra en:
-  - Header de todas las páginas (HomePage, UserLayout, AdminLayout)
-  - Sección del footer en HomePage
-  - Páginas de login y registro (opcional)
+- **Ubicación**: 
+  - `logo/cumbres-logo.png` - Logo con fondo (para headers)
+  - `logo/cumbres-logo-nobg.jpg` - Logo sin fondo (para footer)
+- **Uso**: 
+  - **Con fondo** (`cumbres-logo.png`): Se muestra en headers de todas las páginas (redondeado)
+  - **Sin fondo** (`cumbres-logo-nobg.jpg`): Se muestra en la sección del footer de HomePage
 
 ### Campo de Césped (Imagen 2)
 - **Ubicación**: `pistas/cesped.jpg`
@@ -50,8 +56,17 @@ frontend/public/images/
   - `instalaciones/campus-1.jpg` (imagen 8)
   - `instalaciones/campus-2.jpg` (imagen 9)
 - **Uso**: 
-  - `campus-1.jpg`: Se usa como imagen de fondo sutil en la sección hero de HomePage
+  - `campus-1.jpg`: Se usa como imagen de fondo con overlay en la sección hero de HomePage (mejorada visualmente)
   - `campus-2.jpg`: Se muestra prominentemente en la sección del footer de HomePage
+
+### Imágenes de Features (Nuevas)
+- **Ubicación**: `features/`
+- **Archivos**:
+  - `reservas-faciles.jpg` - Para la tarjeta "Reservas Fáciles"
+  - `multiples-pistas.jpg` - Para la tarjeta "Múltiples Pistas"
+  - `precios-especiales.jpg` - Imagen de alumnos sonriendo para "Precios Especiales"
+- **Uso**: Se muestran en círculos redondeados en las 3 tarjetas de características de la página de inicio
+- **Recomendación**: Imágenes cuadradas (200x200px o 300x300px) para mejor visualización
 
 ## 📝 Instrucciones de Colocación
 
