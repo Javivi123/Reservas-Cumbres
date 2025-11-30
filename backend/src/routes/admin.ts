@@ -112,7 +112,7 @@ router.get('/reports/revenue', async (req: AuthRequest, res) => {
     const total = reservations.reduce((sum: number, r: any) => sum + r.precioTotal, 0);
 
     // Agrupar por pista
-    const bySpace = reservations.reduce((acc: any, r) => {
+    const bySpace = reservations.reduce((acc: any, r: any) => {
       const spaceName = r.space.nombre;
       if (!acc[spaceName]) {
         acc[spaceName] = { total: 0, count: 0 };
