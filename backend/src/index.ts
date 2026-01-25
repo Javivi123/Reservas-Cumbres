@@ -20,8 +20,20 @@ if (isNaN(PORT) || PORT <= 0 || PORT > 65535) {
   process.exit(1);
 }
 
-// Middleware
-app.use(cors());
+// Middleware CORS - Permite todos los orígenes
+app.use(cors({
+  origin: true, // Permite cualquier origen
+  credentials: true,
+}));
+
+// Log de requests para debugging (solo en desarrollo o si DEBUG=true)
+if (process.env.DEBUG === 'true' || process.env.NODE_ENV !== 'production') {
+  app.use((req, res, next) => {
+    console.log(`📥 ${req.method} ${req.path} - Origin: ${req.headers.origin || 'N/A'}`);
+    next();
+  });
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

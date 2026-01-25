@@ -1,7 +1,21 @@
 import axios from 'axios';
 import { User, Space, Reservation } from '../types';
 
+// En producción, VITE_API_URL debe estar configurado
 const API_URL = import.meta.env.VITE_API_URL || '/api';
+
+// Validación en producción
+if (import.meta.env.PROD && !import.meta.env.VITE_API_URL) {
+  console.error('❌ Error: VITE_API_URL no está configurado en producción');
+  console.error('💡 Configura VITE_API_URL en Netlify con la URL de tu backend (ej: https://tu-backend.onrender.com)');
+}
+
+// Log para debugging (solo en desarrollo)
+if (import.meta.env.DEV) {
+  console.log('🔧 API_URL configurada:', API_URL);
+} else {
+  console.log('🌐 API_URL en producción:', API_URL);
+}
 
 const api = axios.create({
   baseURL: API_URL,
@@ -23,10 +37,28 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Error de red (CORS, conexión, etc.)
+    if (!error.response) {
+      console.error('❌ Error de conexión:', error.message);
+      console.error('💡 Verifica que:');
+      console.error('   1. VITE_API_URL esté configurado correctamente en Netlify');
+      console.error('   2. El backend esté funcionando en Render');
+      console.error('   3. CORS esté habilitado en el backend');
+      console.error('   URL intentada:', error.config?.url);
+      console.error('   Base URL:', error.config?.baseURL);
+    }
+    
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';
     }
+    
+    // Error de CORS
+    if (error.message?.includes('CORS') || error.code === 'ERR_NETWORK') {
+      console.error('❌ Error de CORS detectado');
+      console.error('💡 Asegúrate de que el backend permita el origen de Netlify');
+    }
+    
     return Promise.reject(error);
   }
 );
