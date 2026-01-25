@@ -202,7 +202,7 @@ Este documento registra todos los cambios y mejoras realizadas en la aplicación
 - El sistema de emails está simulado (console.log). En producción, integrar con servicio real.
 - Los comprobantes se guardan en `backend/uploads/`. En producción, usar almacenamiento en la nube (S3, Cloudinary, etc.).
 - El número de cuenta bancaria está hardcodeado. En producción, mover a variables de entorno.
-- Las franjas horarias de fines de semana están simplificadas (8:00-20:00). Se puede mejorar con selección de hora específica.
+- Las franjas horarias de fines de semana están configuradas con intervalos de hora y media: 8:00-9:30, 9:30-11:00, 11:00-12:30, 12:30-14:00, 14:00-15:30, 15:30-17:00, 17:00-18:30, 18:30-20:00.
 
 ---
 

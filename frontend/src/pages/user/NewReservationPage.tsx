@@ -16,6 +16,16 @@ import { MapPin, Calendar, Clock, Euro, Lightbulb } from 'lucide-react';
 import { getSpaceImage } from '../../utils/images';
 
 const FRANJAS_SEMANA = ['17:30-19:00', '19:00-20:30', '20:30-22:00'];
+const FRANJAS_FINDE = [
+  '8:00-9:30',
+  '9:30-11:00',
+  '11:00-12:30',
+  '12:30-14:00',
+  '14:00-15:30',
+  '15:30-17:00',
+  '17:00-18:30',
+  '18:30-20:00',
+];
 
 const reservationSchema = z.object({
   spaceId: z.string().min(1, 'Selecciona una pista'),
@@ -95,8 +105,11 @@ export const NewReservationPage = () => {
       const isWeekendDay = isWeekend(fechaDate);
 
       if (isWeekendDay) {
-        // Fines de semana: cualquier hora entre 8-20h (simplificado)
-        setAvailableSlots(['8:00-20:00']);
+        // Fines de semana: franjas de hora y media
+        const reservedSlots = data.reservations.map((r: any) => r.franja);
+        setAvailableSlots(
+          FRANJAS_FINDE.filter((slot) => !reservedSlots.includes(slot))
+        );
       } else {
         // Entre semana: franjas fijas
         const reservedSlots = data.reservations.map((r: any) => r.franja);

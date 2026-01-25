@@ -4,7 +4,7 @@ Sistema web completo para la gestión de reservas de pistas deportivas de un col
 
 ## 🚀 Características
 
-- **Gestión de Reservas**: Sistema completo de reservas con franjas horarias fijas entre semana y horario libre los fines de semana
+- **Gestión de Reservas**: Sistema completo de reservas con franjas horarias fijas entre semana (17:30-22:00) y franjas de hora y media los fines de semana (8:00-20:00)
 - **Múltiples Pistas**: Césped, Multi y Pádel (2 pistas) con imágenes reales de las instalaciones
 - **Sistema de Pagos**: Transferencia bancaria con subida de comprobante y aprobación por administrador
 - **Roles de Usuario**: Admin y Usuario (con opción de precio especial para alumnos/familias/ex-alumnos)

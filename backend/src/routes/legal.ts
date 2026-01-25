@@ -146,7 +146,7 @@ router.get('/normas', (req, res) => {
           <h2 style="color: #1e40af; margin-top: 0;">🕐 2. Horarios</h2>
           <ul style="line-height: 2;">
             <li>📆 <strong>Lunes a Viernes:</strong> <span style="color: #1e40af; font-weight: bold;">17:30 - 22:00</span> (franjas fijas)</li>
-            <li>📆 <strong>Sábados y Domingos:</strong> <span style="color: #1e40af; font-weight: bold;">8:00 - 20:00</span> (horario libre)</li>
+            <li>📆 <strong>Sábados y Domingos:</strong> <span style="color: #1e40af; font-weight: bold;">8:00 - 20:00</span> (franjas de hora y media: 8:00-9:30, 9:30-11:00, 11:00-12:30, 12:30-14:00, 14:00-15:30, 15:30-17:00, 17:00-18:30, 18:30-20:00)</li>
             <li>⏱️ Las instalaciones deben quedar libres <strong>10 minutos antes</strong> del final de la franja reservada</li>
           </ul>
         </div>
