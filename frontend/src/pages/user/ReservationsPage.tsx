@@ -197,6 +197,9 @@ export const ReservationsPage = () => {
                         <p className="text-sm text-gray-700 font-medium">
                           <strong><span>💳</span> <span>Número de cuenta:</span></strong> {reservation.payment.numeroCuenta}
                         </p>
+                        <p className="text-sm text-gray-700 font-medium mt-2">
+                          <strong><span>📱</span> <span>O haz Bizum a:</span></strong> <span className="font-bold">12345</span>
+                        </p>
                         <p className="text-sm text-gray-700 mt-2">
                           <strong>Estado del pago:</strong>{' '}
                           {reservation.payment.status === 'APROBADO' ? (
@@ -268,10 +271,10 @@ export const ReservationsPage = () => {
             <div className="p-4 bg-primary-50 rounded-lg">
               <p className="text-sm font-medium mb-2">Instrucciones:</p>
               <ol className="text-sm text-gray-700 space-y-1 list-decimal list-inside">
-                <li>Realiza la transferencia al número de cuenta indicado</li>
+                <li>Realiza la transferencia al número de cuenta indicado <strong>o haz Bizum a 12345</strong></li>
                 <li>Monto: €{selectedReservation.precioTotal.toFixed(2)}</li>
                 <li>Concepto: Reserva Pistas</li>
-                <li>Sube el comprobante de la transferencia</li>
+                <li>Sube el comprobante de la transferencia o del Bizum</li>
               </ol>
             </div>
 

@@ -94,7 +94,7 @@ router.get('/emergencia', (req, res) => {
         <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1.5rem; margin-bottom: 2rem; border-radius: 8px;">
           <h2 style="color: #92400e; margin-top: 0;">🏫 Contacto del Colegio</h2>
           <ul style="line-height: 2;">
-            <li>📱 <strong>Teléfono:</strong> [TELÉFONO]</li>
+            <li>📱 <strong>Teléfono:</strong> 961393959</li>
             <li>📧 <strong>Email:</strong> [EMAIL]</li>
             <li>📍 <strong>Dirección:</strong> [DIRECCIÓN]</li>
           </ul>
