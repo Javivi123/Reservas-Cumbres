@@ -4,7 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import prisma from '../prisma/client';
 import { reservationSchema } from '../utils/validation';
-import { calculatePrice, isValidTimeSlot } from '../utils/pricing';
+import { calculatePrice, isValidTimeSlot, doTimeSlotsOverlap, FRANJA_LEGACY_FINDE } from '../utils/pricing';
 import { authenticate, AuthRequest, requireAdmin } from '../middleware/auth';
 import {
   sendReservationCreatedEmail,
@@ -60,7 +60,7 @@ router.post('/', authenticate, async (req: AuthRequest, res) => {
       return res.status(400).json({ error: 'Franja horaria inválida' });
     }
 
-    // Verificar si ya existe una reserva para esa pista, fecha y franja
+    // Verificar si ya existe una reserva para esa pista, fecha y franja exacta
     const existingReservation = await prisma.reservation.findUnique({
       where: {
         spaceId_fecha_franja: {
@@ -73,6 +73,34 @@ router.post('/', authenticate, async (req: AuthRequest, res) => {
 
     if (existingReservation && existingReservation.estado !== 'LIBRE') {
       return res.status(400).json({ error: 'Esta franja ya está reservada' });
+    }
+
+    // Verificar solapamientos con otras reservas (especialmente reservas legacy '8:00-20:00')
+    const fechaInicio = new Date(fecha);
+    fechaInicio.setHours(0, 0, 0, 0);
+    const fechaFin = new Date(fecha);
+    fechaFin.setHours(23, 59, 59, 999);
+
+    const overlappingReservations = await prisma.reservation.findMany({
+      where: {
+        spaceId: data.spaceId,
+        fecha: {
+          gte: fechaInicio,
+          lte: fechaFin,
+        },
+        estado: {
+          in: ['PRE_RESERVADA', 'RESERVADA', 'NO_DISPONIBLE'],
+        },
+      },
+    });
+
+    // Verificar si alguna reserva existente se solapa con la nueva franja
+    for (const reservation of overlappingReservations) {
+      if (doTimeSlotsOverlap(reservation.franja, data.franja)) {
+        return res.status(400).json({ 
+          error: `Esta franja se solapa con una reserva existente (${reservation.franja})` 
+        });
+      }
     }
 
     // Obtener usuario para verificar si es especial

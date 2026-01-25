@@ -27,6 +27,37 @@ const FRANJAS_FINDE = [
   '18:30-20:00',
 ];
 
+/**
+ * Convierte una franja horaria a minutos desde medianoche
+ * Ejemplo: '8:00-9:30' -> { start: 480, end: 570 }
+ */
+const parseTimeSlot = (franja: string): { start: number; end: number } | null => {
+  const match = franja.match(/^(\d{1,2}):(\d{2})-(\d{1,2}):(\d{2})$/);
+  if (!match) return null;
+  
+  const [, startHour, startMin, endHour, endMin] = match;
+  const start = parseInt(startHour, 10) * 60 + parseInt(startMin, 10);
+  const end = parseInt(endHour, 10) * 60 + parseInt(endMin, 10);
+  
+  return { start, end };
+};
+
+/**
+ * Verifica si dos franjas horarias se solapan
+ */
+const doTimeSlotsOverlap = (franja1: string, franja2: string): boolean => {
+  // Si son iguales, se solapan
+  if (franja1 === franja2) return true;
+  
+  const slot1 = parseTimeSlot(franja1);
+  const slot2 = parseTimeSlot(franja2);
+  
+  if (!slot1 || !slot2) return false;
+  
+  // Se solapan si: start1 < end2 && start2 < end1
+  return slot1.start < slot2.end && slot2.start < slot1.end;
+};
+
 const reservationSchema = z.object({
   spaceId: z.string().min(1, 'Selecciona una pista'),
   fecha: z.string().refine((val) => !isNaN(Date.parse(val)), 'Fecha inválida'),
@@ -106,9 +137,15 @@ export const NewReservationPage = () => {
 
       if (isWeekendDay) {
         // Fines de semana: franjas de hora y media
+        // Filtrar franjas que se solapen con reservas existentes (incluyendo legacy '8:00-20:00')
         const reservedSlots = data.reservations.map((r: any) => r.franja);
         setAvailableSlots(
-          FRANJAS_FINDE.filter((slot) => !reservedSlots.includes(slot))
+          FRANJAS_FINDE.filter((slot) => {
+            // Verificar si la franja se solapa con alguna reserva existente
+            return !reservedSlots.some((reservedFranja: string) => 
+              doTimeSlotsOverlap(slot, reservedFranja)
+            );
+          })
         );
       } else {
         // Entre semana: franjas fijas

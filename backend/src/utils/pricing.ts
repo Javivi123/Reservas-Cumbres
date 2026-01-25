@@ -61,10 +61,44 @@ export const isWeekend = (date: Date): boolean => {
   return day === 0 || day === 6; // Domingo o Sábado
 };
 
+// Constante para la franja antigua de fin de semana (legacy)
+export const FRANJA_LEGACY_FINDE = '8:00-20:00';
+
+/**
+ * Convierte una franja horaria a minutos desde medianoche
+ * Ejemplo: '8:00-9:30' -> { start: 480, end: 570 }
+ */
+const parseTimeSlot = (franja: string): { start: number; end: number } | null => {
+  const match = franja.match(/^(\d{1,2}):(\d{2})-(\d{1,2}):(\d{2})$/);
+  if (!match) return null;
+  
+  const [, startHour, startMin, endHour, endMin] = match;
+  const start = parseInt(startHour, 10) * 60 + parseInt(startMin, 10);
+  const end = parseInt(endHour, 10) * 60 + parseInt(endMin, 10);
+  
+  return { start, end };
+};
+
+/**
+ * Verifica si dos franjas horarias se solapan
+ */
+export const doTimeSlotsOverlap = (franja1: string, franja2: string): boolean => {
+  // Si son iguales, se solapan
+  if (franja1 === franja2) return true;
+  
+  const slot1 = parseTimeSlot(franja1);
+  const slot2 = parseTimeSlot(franja2);
+  
+  if (!slot1 || !slot2) return false;
+  
+  // Se solapan si: start1 < end2 && start2 < end1
+  return slot1.start < slot2.end && slot2.start < slot1.end;
+};
+
 export const isValidTimeSlot = (date: Date, franja: string): boolean => {
   if (isWeekend(date)) {
-    // Fines de semana: solo las franjas de hora y media
-    return FRANJAS_FINDE.includes(franja);
+    // Fines de semana: solo las franjas de hora y media o la legacy
+    return FRANJAS_FINDE.includes(franja) || franja === FRANJA_LEGACY_FINDE;
   }
   // Entre semana: solo las franjas fijas
   return FRANJAS_SEMANA.includes(franja);
