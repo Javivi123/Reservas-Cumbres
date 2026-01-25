@@ -87,6 +87,10 @@ CORS_ORIGIN="https://tu-app.vercel.app"
 # Email (opcional, para producción real)
 EMAIL_FROM="noreply@reservascumbres.com"
 
+# Información de contacto y pagos (IMPORTANTE: Cambia estos valores)
+BIZUM_NUMBER="12345"  # ⚠️ Cambia por tu número de Bizum real
+CONTACT_PHONE="961393959"  # ⚠️ Cambia por el teléfono real del colegio
+
 # Uploads
 UPLOAD_DIR="./uploads"
 MAX_FILE_SIZE=5242880
@@ -96,6 +100,7 @@ MAX_FILE_SIZE=5242880
 - Genera un nuevo `JWT_SECRET` seguro (puedes usar: `openssl rand -base64 32`)
 - No uses el mismo `JWT_SECRET` de desarrollo
 - La `DATABASE_URL` será proporcionada por tu servicio de base de datos
+- **Cambia `BIZUM_NUMBER` y `CONTACT_PHONE` por los valores reales** (los valores por defecto son solo para desarrollo)
 
 ### 2.3 Opciones de Base de Datos (Gratuitas)
 
@@ -207,6 +212,8 @@ MAX_FILE_SIZE=5242880
      PORT=3001
      NODE_ENV=production
      CORS_ORIGIN=https://tu-app.vercel.app
+     BIZUM_NUMBER=tu-numero-bizum-real
+     CONTACT_PHONE=961393959
      UPLOAD_DIR=./uploads
      MAX_FILE_SIZE=5242880
      ```

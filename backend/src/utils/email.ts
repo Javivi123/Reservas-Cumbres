@@ -1,6 +1,8 @@
 // Simulación de envío de emails
 // En producción, usar un servicio como SendGrid, Resend, o AWS SES
 
+import { BIZUM_NUMBER } from './config';
+
 export const sendEmail = async (
   to: string,
   subject: string,
@@ -39,9 +41,9 @@ export const sendReservationCreatedEmail = async (
     <h1>Reserva Creada</h1>
     <p>Hola ${nombre},</p>
     <p>Tu solicitud de reserva ha sido creada exitosamente (ID: ${reservaId}).</p>
-    <p><strong>Importante:</strong> Realiza la transferencia bancaria al siguiente número de cuenta o haz Bizum a 12345:</p>
+    <p><strong>Importante:</strong> Realiza la transferencia bancaria al siguiente número de cuenta o haz Bizum a ${BIZUM_NUMBER}:</p>
     <p style="font-size: 18px; font-weight: bold; color: #2563eb;">${numeroCuenta}</p>
-    <p style="font-size: 18px; font-weight: bold; color: #2563eb;">📱 Bizum: 12345</p>
+    <p style="font-size: 18px; font-weight: bold; color: #2563eb;">📱 Bizum: ${BIZUM_NUMBER}</p>
     <p><strong>Monto:</strong> €${monto.toFixed(2)}</p>
     <p><strong>Concepto:</strong> Reserva Pistas</p>
     <p>Una vez realizada la transferencia o el Bizum, sube el comprobante en la aplicación para completar tu solicitud.</p>

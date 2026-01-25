@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { reservationService } from '../../services/api';
+import { reservationService, configService } from '../../services/api';
 import { Reservation } from '../../types';
 import { Badge } from '../../components/Badge';
 import { format } from 'date-fns';
@@ -16,10 +16,23 @@ export const ReservationsPage = () => {
   const [uploading, setUploading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [deletingReservationId, setDeletingReservationId] = useState<string | null>(null);
+  const [config, setConfig] = useState<{ bizumNumber: string; contactPhone: string } | null>(null);
 
   useEffect(() => {
     loadReservations();
+    loadConfig();
   }, []);
+
+  const loadConfig = async () => {
+    try {
+      const publicConfig = await configService.getPublicConfig();
+      setConfig(publicConfig);
+    } catch (error) {
+      console.error('Error al cargar configuración:', error);
+      // Valores por defecto si falla la carga
+      setConfig({ bizumNumber: '12345', contactPhone: '961393959' });
+    }
+  };
 
   const loadReservations = async () => {
     try {
@@ -197,9 +210,11 @@ export const ReservationsPage = () => {
                         <p className="text-sm text-gray-700 font-medium">
                           <strong><span>💳</span> <span>Número de cuenta:</span></strong> {reservation.payment.numeroCuenta}
                         </p>
-                        <p className="text-sm text-gray-700 font-medium mt-2">
-                          <strong><span>📱</span> <span>O haz Bizum a:</span></strong> <span className="font-bold">12345</span>
-                        </p>
+                        {config && (
+                          <p className="text-sm text-gray-700 font-medium mt-2">
+                            <strong><span>📱</span> <span>O haz Bizum a:</span></strong> <span className="font-bold">{config.bizumNumber}</span>
+                          </p>
+                        )}
                         <p className="text-sm text-gray-700 mt-2">
                           <strong>Estado del pago:</strong>{' '}
                           {reservation.payment.status === 'APROBADO' ? (
@@ -271,7 +286,7 @@ export const ReservationsPage = () => {
             <div className="p-4 bg-primary-50 rounded-lg">
               <p className="text-sm font-medium mb-2">Instrucciones:</p>
               <ol className="text-sm text-gray-700 space-y-1 list-decimal list-inside">
-                <li>Realiza la transferencia al número de cuenta indicado <strong>o haz Bizum a 12345</strong></li>
+                <li>Realiza la transferencia al número de cuenta indicado {config && <strong>o haz Bizum a {config.bizumNumber}</strong>}</li>
                 <li>Monto: €{selectedReservation.precioTotal.toFixed(2)}</li>
                 <li>Concepto: Reserva Pistas</li>
                 <li>Sube el comprobante de la transferencia o del Bizum</li>

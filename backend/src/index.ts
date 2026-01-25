@@ -8,6 +8,7 @@ import { spaceRoutes } from './routes/spaces';
 import { adminRoutes } from './routes/admin';
 import { userRoutes } from './routes/users';
 import { legalRoutes } from './routes/legal';
+import { getPublicConfig } from './utils/config';
 
 dotenv.config();
 
@@ -69,6 +70,11 @@ app.use('/api/legal', legalRoutes);
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Servidor funcionando correctamente' });
+});
+
+// Configuración pública (valores que el frontend puede usar)
+app.get('/api/config', (req, res) => {
+  res.json(getPublicConfig());
 });
 
 const server = app.listen(PORT, '0.0.0.0', () => {
