@@ -228,3 +228,9 @@ export const legalService = {
   },
 };
 
+export const configService = {
+  getPublicConfig: async (): Promise<{ bizumNumber: string; contactPhone: string }> => {
+    const { data } = await api.get('/config');
+    return data;
+  },
+};
